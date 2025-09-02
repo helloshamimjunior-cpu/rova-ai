@@ -134,6 +134,53 @@ export default function Page({
     </div>
   </div>
 </section>
+{/* Outcomes */}
+<section className="py-16 bg-white">
+  <h2 className="text-center text-2xl font-semibold mb-10">
+    কোর্স শেষে তুমি যা করতে পারবে
+  </h2>
+
+  <div className="mx-auto max-w-6xl grid gap-4 sm:grid-cols-2">
+    <div className="rounded-xl border bg-neutral-50 p-5">
+      <div className="font-semibold mb-1">AI Agent / Automation সেটআপ</div>
+      <p className="text-sm text-gray-600">
+        Zapier / n8n দিয়ে মাল্টি-স্টেপ অটোমেশন, ওয়েবহুক/ইন্টিগ্রেশন কনফিগার।
+      </p>
+    </div>
+
+    <div className="rounded-xl border bg-neutral-50 p-5">
+      <div className="font-semibold mb-1">ক্লায়েন্টের জন্য ওয়ার্কফ্লো ডিজাইন</div>
+      <p className="text-sm text-gray-600">
+        রিকোয়ায়ারমেন্ট নিয়ে SOP বানানো, প্রপোজাল ও কস্টিং তৈরি।
+      </p>
+    </div>
+
+    <div className="rounded-xl border bg-neutral-50 p-5">
+      <div className="font-semibold mb-1">পোর্টফোলিও + কেস স্টাডি</div>
+      <p className="text-sm text-gray-600">
+        Content Bot, CRM Workflow, SOP Walkthrough—এসব দিয়ে প্রজেক্ট শোকেস।
+      </p>
+    </div>
+
+    <div className="rounded-xl border bg-neutral-50 p-5">
+      <div className="font-semibold mb-1">ফ্রিল্যান্স/জব রেডিনেস</div>
+      <p className="text-sm text-gray-600">
+        গিগ/প্রপোজাল টেমপ্লেট, ইন্টারভিউ প্রস্তুতি, ১ঃ১ সাপোর্টে সমস্যা সমাধান।
+      </p>
+    </div>
+  </div>
+
+  {/* Quick skill badges */}
+  <div className="mt-8 flex flex-wrap justify-center gap-2 text-sm">
+    <span className="px-3 py-1 rounded-full border">Prompt Engineering</span>
+    <span className="px-3 py-1 rounded-full border">Zapier Multi-step</span>
+    <span className="px-3 py-1 rounded-full border">n8n Workflows</span>
+    <span className="px-3 py-1 rounded-full border">API/Webhooks</span>
+    <span className="px-3 py-1 rounded-full border">Client Proposal</span>
+    <span className="px-3 py-1 rounded-full border">Portfolio Case Study</span>
+  </div>
+</section>
+
     </>
   );
 }
