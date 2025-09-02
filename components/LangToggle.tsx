@@ -4,11 +4,15 @@ import Link from "next/link";
 
 export default function LangToggle() {
   const pathname = usePathname();
-  const search = new URLSearchParams(useSearchParams() as any);
+  const params = useSearchParams(); // ReadonlyURLSearchParams
+
   const makeUrl = (lang: "bn" | "en") => {
-    search.set("lang", lang);
-    return `${pathname}?${search.toString()}`;
+    const next = new URLSearchParams(params.toString());
+    next.set("lang", lang);
+    const qs = next.toString();
+    return qs ? `${pathname}?${qs}` : pathname;
   };
+
   return (
     <div className="text-sm flex items-center gap-2">
       <Link href={makeUrl("bn")} className="underline">বাংলা</Link>
