@@ -24,8 +24,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main className="mx-auto max-w-6xl px-4">{children}</main>
         <Footer />
-
-        {/* 👇 এখানে বসালাম */}
         <Providers />
       </body>
     </html>
