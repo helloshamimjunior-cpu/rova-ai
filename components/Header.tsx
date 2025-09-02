@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import LangToggle from "./LangToggle";
 
 export default function Header() {
@@ -16,10 +17,14 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <LangToggle />
+          {/* 👇 useSearchParams সহ ক্লায়েন্ট কম্পোনেন্টকে Suspense এ রাখি */}
+          <Suspense fallback={null}>
+            <LangToggle />
+          </Suspense>
+
           <Link href="/login" className="text-sm">Login</Link>
           <Link href="/signup" className="text-sm">Signup</Link>
-          <Link href="/enroll" className="rounded-md px-3 py-1.5 text-sm font-medium text-white" style={{background:"#2D6EEA"}}>
+          <Link href="/enroll" className="rounded-md px-3 py-1.5 text-sm font-medium text-white" style={{background:"var(--brand-primary)"}}>
             এখনই ভর্তি হন
           </Link>
         </div>
