@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LangToggle from "./LangToggle";
 
 export default function Header() {
   return (
@@ -15,13 +16,10 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <LangToggle />
           <Link href="/login" className="text-sm">Login</Link>
           <Link href="/signup" className="text-sm">Signup</Link>
-          <Link
-            href="/enroll"
-            className="rounded-md px-3 py-1.5 text-sm font-medium text-white"
-            style={{ background: "#2D6EEA" }}
-          >
+          <Link href="/enroll" className="rounded-md px-3 py-1.5 text-sm font-medium text-white" style={{background:"#2D6EEA"}}>
             এখনই ভর্তি হন
           </Link>
         </div>
