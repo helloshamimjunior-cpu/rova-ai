@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="mt-20 border-t bg-white">
@@ -6,16 +8,25 @@ export default function Footer() {
           <div className="font-semibold mb-2">Rova AI Academy</div>
           <p className="text-sm text-neutral-600">সাপ্তাহিক AI টিপস ও জব হাইলাইটস</p>
         </div>
+
         <div className="text-sm grid grid-cols-2 gap-2">
-          <a href="/about">About</a><a href="/courses">Courses</a>
-          <a href="/pricing">Pricing</a><a href="/community">Community</a>
-          <a href="/blog">Blog</a><a href="/faq">FAQ</a>
-          <a href="/contact">Contact</a><a href="/legal/privacy">Privacy</a>
-          <a href="/legal/terms">Terms</a><a href="/legal/refund">Refund Policy</a>
+          <Link href="/about">About</Link>
+          <Link href="/courses">Courses</Link>
+          <Link href="/pricing">Pricing</Link>
+          <Link href="/community">Community</Link>
+          <Link href="/blog">Blog</Link>
+          <Link href="/faq">FAQ</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/legal/privacy">Privacy</Link>
+          <Link href="/legal/terms">Terms</Link>
+          <Link href="/legal/refund">Refund Policy</Link>
         </div>
+
         <form className="flex gap-2">
-          <input placeholder="Email" className="flex-1 rounded-md border px-3 py-2"/>
-          <button className="rounded-md px-3 py-2 text-white" style={{background:"#F9A826"}}>Subscribe</button>
+          <input placeholder="Email" className="flex-1 rounded-md border px-3 py-2" />
+          <button className="rounded-md px-3 py-2 text-white" style={{ background: "#F9A826" }}>
+            Subscribe
+          </button>
         </form>
       </div>
     </footer>
