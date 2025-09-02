@@ -294,6 +294,69 @@ export default function Page({
     </div>
   </div>
 </section>
+{/* Testimonials */}
+<section className="py-16">
+  <h2 className="text-center text-2xl font-semibold mb-10">
+    শিক্ষার্থীদের অভিজ্ঞতা
+  </h2>
+
+  <div className="mx-auto max-w-6xl grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {/* Testimonial 1 */}
+    <div className="rounded-xl border bg-white p-6">
+      <p className="text-sm text-gray-700 mb-4">
+        “Rova AI কোর্স করার পরেই প্রথম ফ্রিল্যান্স প্রজেক্ট পেলাম। হাতে-কলমে
+        প্র্যাকটিস খুব হেল্প করেছে।”
+      </p>
+      <div className="flex items-center gap-3">
+        <img src="https://dummyimage.com/40x40/ddd/000.png&text=U1" alt="User 1" className="rounded-full" />
+        <div>
+          <div className="font-semibold text-sm">সাদিয়া রহমান</div>
+          <div className="text-xs text-gray-500">Freelancer</div>
+        </div>
+      </div>
+    </div>
+
+    {/* Testimonial 2 */}
+    <div className="rounded-xl border bg-white p-6">
+      <p className="text-sm text-gray-700 mb-4">
+        “Dashboard আর মেন্টর সাপোর্টের কারণে শেখাটা অনেক সহজ লেগেছে।”
+      </p>
+      <div className="flex items-center gap-3">
+        <img src="https://dummyimage.com/40x40/ddd/000.png&text=U2" alt="User 2" className="rounded-full" />
+        <div>
+          <div className="font-semibold text-sm">মাহিন ইসলাম</div>
+          <div className="text-xs text-gray-500">Junior Automation Specialist</div>
+        </div>
+      </div>
+    </div>
+
+    {/* Testimonial 3 */}
+    <div className="rounded-xl border bg-white p-6">
+      <p className="text-sm text-gray-700 mb-4">
+        “Portfolio Review আর প্র্যাকটিক্যাল প্রজেক্টে জব ইন্টারভিউ ক্লিয়ার করতে
+        সাহায্য করেছে।”
+      </p>
+      <div className="flex items-center gap-3">
+        <img src="https://dummyimage.com/40x40/ddd/000.png&text=U3" alt="User 3" className="rounded-full" />
+        <div>
+          <div className="font-semibold text-sm">তানভীর আহমেদ</div>
+          <div className="text-xs text-gray-500">Automation Engineer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* CTA */}
+  <div className="text-center mt-10">
+    <a
+      href="/reviews"
+      className="px-6 py-3 rounded-md text-white font-medium"
+      style={{ background: "var(--brand-primary)" }}
+    >
+      আরও শিক্ষার্থীর রিভিউ দেখুন
+    </a>
+  </div>
+</section>
     </>
   );
 }
