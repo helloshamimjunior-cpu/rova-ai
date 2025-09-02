@@ -357,6 +357,51 @@ export default function Page({
     </a>
   </div>
 </section>
+{/* FAQ Teaser */}
+<section className="py-16 bg-white">
+  <h2 className="text-center text-2xl font-semibold mb-10">
+    সাধারণ প্রশ্নোত্তর
+  </h2>
+
+  <div className="mx-auto max-w-4xl divide-y rounded-xl border bg-neutral-50">
+    <details className="p-5">
+      <summary className="font-medium cursor-pointer">
+        কিভাবে পেমেন্ট করবো?
+      </summary>
+      <p className="text-sm text-gray-600 mt-2">
+        Bkash/Nagad/SSLCommerz এর মাধ্যমে নিরাপদ অনলাইন পেমেন্ট করা যাবে।
+      </p>
+    </details>
+
+    <details className="p-5">
+      <summary className="font-medium cursor-pointer">
+        কোর্স কিনলে কতদিন অ্যাক্সেস থাকবে?
+      </summary>
+      <p className="text-sm text-gray-600 mt-2">
+        প্রতিটি কোর্সে লাইফটাইম অ্যাক্সেস থাকবে, সাথে ফ্রি আপডেট।
+      </p>
+    </details>
+
+    <details className="p-5">
+      <summary className="font-medium cursor-pointer">
+        ১ঃ১ সাপোর্ট সেশন কিভাবে বুক করবো?
+      </summary>
+      <p className="text-sm text-gray-600 mt-2">
+        Dashboard থেকে সাপোর্ট সেশন স্লট সিলেক্ট করে সহজে বুক করা যাবে।
+      </p>
+    </details>
+  </div>
+
+  <div className="text-center mt-10">
+    <a
+      href="/faq"
+      className="px-6 py-3 rounded-md text-white font-medium"
+      style={{ background: "var(--brand-primary)" }}
+    >
+      সব FAQ দেখুন
+    </a>
+  </div>
+</section>
     </>
   );
 }
