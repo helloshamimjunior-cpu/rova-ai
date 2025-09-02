@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type Props = { searchParams: { lang?: "bn" | "en" } };
 
 const dict = {
@@ -26,17 +28,29 @@ export default function Page({ searchParams }: Props) {
   return (
     <section className="py-20 text-center">
       <h1 className="text-4xl font-bold mb-6">
-        {t.titleA} <span className="text-blue-600">{t.titleB}</span>
+        {t.titleA}{" "}
+        <span className="text-[color:var(--brand-primary)]">{t.titleB}</span>
       </h1>
+
       <p className="text-lg text-gray-600 mb-8">{t.sub}</p>
+
       <div className="flex justify-center gap-4">
-        <a href="/enroll" className="rounded-md px-6 py-3 text-white font-medium" style={{background:"#2D6EEA"}}>
+        <Link
+          href="/enroll"
+          className="rounded-md px-6 py-3 text-white font-medium"
+          style={{ background: "var(--brand-primary)" }}
+        >
           {t.primary}
-        </a>
-        <a href="/courses" className="rounded-md px-6 py-3 border font-medium">
+        </Link>
+
+        <Link
+          href="/courses"
+          className="rounded-md px-6 py-3 border font-medium"
+        >
           {t.secondary}
-        </a>
+        </Link>
       </div>
+
       <div className="mt-8 text-sm text-gray-500">{t.badges}</div>
     </section>
   );
