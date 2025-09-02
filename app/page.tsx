@@ -228,6 +228,72 @@ export default function Page({
     </div>
   </div>
 </section>
+{/* Curriculum Preview */}
+<section className="py-16 bg-white">
+  <h2 className="text-center text-2xl font-semibold mb-10">
+    কারিকুলাম ঝলক
+  </h2>
+
+  <div className="mx-auto max-w-6xl grid gap-6 md:grid-cols-2">
+    {/* Basic */}
+    <div className="rounded-xl border bg-neutral-50 p-6">
+      <div className="text-lg font-semibold mb-2">Basic — ৳১,৫০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+        <li>Prompt Engineering (Foundations)</li>
+        <li>Zapier Basics (Single-step)</li>
+        <li>Mini Project: Content Helper</li>
+      </ul>
+    </div>
+
+    {/* Intermediate */}
+    <div className="rounded-xl border bg-neutral-50 p-6">
+      <div className="text-lg font-semibold mb-2">Intermediate — ৳২,৫০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+        <li>Zapier Multi-step Workflow</li>
+        <li>n8n পরিচিতি + Triggers</li>
+        <li>API/Webhook Integrations</li>
+        <li>Mini Project: Lead Capture → CRM</li>
+      </ul>
+    </div>
+
+    {/* Advanced */}
+    <div className="rounded-xl border bg-neutral-50 p-6">
+      <div className="text-lg font-semibold mb-2">Advanced — ৳৬,০০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+        <li>Client Workflow Design (Discovery → SOP)</li>
+        <li>AI Agents Basics (LangChain/Tools)</li>
+        <li>Freelance Project Setup & Handover</li>
+        <li>Case Study: CRM + Agent + Notifier</li>
+      </ul>
+    </div>
+
+    {/* Micro */}
+    <div className="rounded-xl border bg-neutral-50 p-6">
+      <div className="text-lg font-semibold mb-2">Micro — ৳৫০০–৳৮০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+        <li>Topic-based Mini Courses</li>
+        <li>Short Workshops (2–3 hrs)</li>
+        <li>Practice Tasks + Checklists</li>
+      </ul>
+    </div>
+  </div>
+
+  {/* Support & credits */}
+  <div className="mx-auto max-w-6xl mt-8 grid gap-4 md:grid-cols-3">
+    <div className="rounded-xl border bg-white p-5">
+      <div className="font-semibold mb-1">ফ্রি ৫ ক্রেডিট</div>
+      <p className="text-sm text-gray-600">শুরুতেই বেসিক কনটেন্ট/টাস্ক আনলক।</p>
+    </div>
+    <div className="rounded-xl border bg-white p-5">
+      <div className="font-semibold mb-1">সাবস্ক্রিপশন</div>
+      <p className="text-sm text-gray-600">৳৭০০/মাসে ১৫ ক্রেডিট · Premium ৳১,২০০ · Pro ৳২,০০০</p>
+    </div>
+    <div className="rounded-xl border bg-white p-5">
+      <div className="font-semibold mb-1">Extra Bundles</div>
+      <p className="text-sm text-gray-600">৫/২০/৫০ credits · Workshop/Portfolio Review</p>
+    </div>
+  </div>
+</section>
     </>
   );
 }
