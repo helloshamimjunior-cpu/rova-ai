@@ -26,32 +26,40 @@ export default function Page({ searchParams }: Props) {
   const t = dict[lang];
 
   return (
-    <section className="py-20 text-center">
-      <h1 className="text-4xl font-bold mb-6">
-        {t.titleA}{" "}
-        <span className="text-[color:var(--brand-primary)]">{t.titleB}</span>
-      </h1>
+    <>
+      {/* Hero Section */}
+      <section className="py-20 text-center">
+        <h1 className="text-4xl font-bold mb-6">
+          {t.titleA}{" "}
+          <span className="text-[color:var(--brand-primary)]">{t.titleB}</span>
+        </h1>
 
-      <p className="text-lg text-gray-600 mb-8">{t.sub}</p>
+        <p className="text-lg text-gray-600 mb-8">{t.sub}</p>
 
-      <div className="flex justify-center gap-4">
-        <Link
-          href="/enroll"
-          className="rounded-md px-6 py-3 text-white font-medium"
-          style={{ background: "var(--brand-primary)" }}
-        >
-          {t.primary}
-        </Link>
+        <div className="flex justify-center gap-4">
+          <Link
+            href="/enroll"
+            className="rounded-md px-6 py-3 text-white font-medium"
+            style={{ background: "var(--brand-primary)" }}
+          >
+            {t.primary}
+          </Link>
 
-        <Link
-          href="/courses"
-          className="rounded-md px-6 py-3 border font-medium"
-        >
-          {t.secondary}
-        </Link>
-      </div>
+          <Link
+            href="/courses"
+            className="rounded-md px-6 py-3 border font-medium"
+          >
+            {t.secondary}
+          </Link>
+        </div>
 
-      <div className="mt-8 text-sm text-gray-500">{t.badges}</div>
-    </section>
-  );
-}
+        <div className="mt-8 text-sm text-gray-500">{t.badges}</div>
+      </section>
+
+      {/* Social Proof Section */}
+      <section className="py-16 bg-white">
+        <h2 className="text-center text-2xl font-semibold mb-10">
+          ইতিমধ্যেই শত শত শিক্ষার্থী Rova AI Academy-তে যুক্ত
+        </h2>
+
+        <div className="mx-auto max-w-5xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center"
