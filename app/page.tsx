@@ -94,6 +94,46 @@ export default function Page({
           />
         </div>
       </section>
+      {/* Why Rova AI */}
+<section className="py-16">
+  <h2 className="text-center text-2xl font-semibold mb-10">
+    কেন Rova AI Academy?
+  </h2>
+
+  <div className="mx-auto max-w-6xl grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {/* Card 1 */}
+    <div className="rounded-xl border bg-white p-5">
+      <div className="text-lg font-semibold mb-2">হাতে-কলমে প্রজেক্ট</div>
+      <p className="text-sm text-gray-600">
+        Content Bot, CRM Workflow, SOP Walkthrough—রিয়াল প্রজেক্টে কাজ।
+      </p>
+    </div>
+
+    {/* Card 2 */}
+    <div className="rounded-xl border bg-white p-5">
+      <div className="text-lg font-semibold mb-2">বাংলায় গাইড + ১ঃ১ সাপোর্ট</div>
+      <p className="text-sm text-gray-600">
+        লাইভ সেশনে প্রশ্ন সমাধান, রেকর্ডিং ও রিসোর্সসহ।
+      </p>
+    </div>
+
+    {/* Card 3 */}
+    <div className="rounded-xl border bg-white p-5">
+      <div className="text-lg font-semibold mb-2">ফ্রিল্যান্স/জব ফোকাস</div>
+      <p className="text-sm text-gray-600">
+        ক্লায়েন্ট ওয়ার্কফ্লো ডিজাইন, প্রপোজাল, পোর্টফোলিও রিভিউ।
+      </p>
+    </div>
+
+    {/* Card 4 */}
+    <div className="rounded-xl border bg-white p-5">
+      <div className="text-lg font-semibold mb-2">ক্রেডিট সিস্টেম</div>
+      <p className="text-sm text-gray-600">
+        ফ্রি ৫ ক্রেডিট, সাবস্ক্রিপশন/বাণ্ডেলে সহজে আপগ্রেড।
+      </p>
+    </div>
+  </div>
+</section>
     </>
   );
 }
