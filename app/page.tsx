@@ -402,6 +402,29 @@ export default function Page({
     </a>
   </div>
 </section>
+{/* Final CTA Banner */}
+<section className="py-16 bg-[color:var(--brand-primary)] text-white text-center rounded-none">
+  <h2 className="text-3xl font-bold mb-4">
+    আজই শুরু করুন — ফ্রি ৫ ক্রেডিট সহ
+  </h2>
+  <p className="text-lg mb-6">
+    Rova AI Academy এর সাথে Automation ও AI স্কিল শিখে ক্যারিয়ার এগিয়ে নিন
+  </p>
+  <div className="flex justify-center gap-4">
+    <a
+      href="/enroll"
+      className="px-6 py-3 rounded-md bg-white text-[color:var(--brand-primary)] font-medium"
+    >
+      এখনই ভর্তি হন
+    </a>
+    <a
+      href="/courses"
+      className="px-6 py-3 rounded-md border border-white font-medium"
+    >
+      কোর্স দেখুন
+    </a>
+  </div>
+</section>
     </>
   );
 }
