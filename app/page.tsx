@@ -149,7 +149,7 @@ export default function Page({
   </h2>
 
   <div className="mx-auto max-w-6xl grid gap-4 sm:grid-cols-2">
-    <div className="rounded-xl border bg-neutral-50 p-5">
+    <div className="rounded-xl border bg-gradient-to-r from-blue-50 to-blue-100 p-5 hover:shadow-lg hover:-translate-y-1 transition">
       <div className="flex items-center gap-2 mb-1 font-semibold">
         <Settings className="h-5 w-5 text-blue-600" />
         AI Agent / Automation সেটআপ
@@ -159,9 +159,9 @@ export default function Page({
       </p>
     </div>
 
-    <div className="rounded-xl border bg-neutral-50 p-5">
+    <div className="rounded-xl border bg-gradient-to-r from-green-50 to-green-100 p-5 hover:shadow-lg hover:-translate-y-1 transition">
       <div className="flex items-center gap-2 mb-1 font-semibold">
-        <FileText className="h-5 w-5 text-blue-600" />
+        <FileText className="h-5 w-5 text-green-600" />
         ক্লায়েন্টের জন্য ওয়ার্কফ্লো ডিজাইন
       </div>
       <p className="text-sm text-gray-600">
@@ -169,9 +169,9 @@ export default function Page({
       </p>
     </div>
 
-    <div className="rounded-xl border bg-neutral-50 p-5">
+    <div className="rounded-xl border bg-gradient-to-r from-purple-50 to-purple-100 p-5 hover:shadow-lg hover:-translate-y-1 transition">
       <div className="flex items-center gap-2 mb-1 font-semibold">
-        <FolderOpen className="h-5 w-5 text-blue-600" />
+        <FolderOpen className="h-5 w-5 text-purple-600" />
         পোর্টফোলিও + কেস স্টাডি
       </div>
       <p className="text-sm text-gray-600">
@@ -179,9 +179,9 @@ export default function Page({
       </p>
     </div>
 
-    <div className="rounded-xl border bg-neutral-50 p-5">
+    <div className="rounded-xl border bg-gradient-to-r from-pink-50 to-pink-100 p-5 hover:shadow-lg hover:-translate-y-1 transition">
       <div className="flex items-center gap-2 mb-1 font-semibold">
-        <Briefcase className="h-5 w-5 text-blue-600" />
+        <Briefcase className="h-5 w-5 text-pink-600" />
         ফ্রিল্যান্স/জব রেডিনেস
       </div>
       <p className="text-sm text-gray-600">
@@ -192,12 +192,12 @@ export default function Page({
 
   {/* Quick skill badges */}
   <div className="mt-8 flex flex-wrap justify-center gap-2 text-sm">
-    <span className="px-3 py-1 rounded-full border">Prompt Engineering</span>
-    <span className="px-3 py-1 rounded-full border">Zapier Multi-step</span>
-    <span className="px-3 py-1 rounded-full border">n8n Workflows</span>
-    <span className="px-3 py-1 rounded-full border">API/Webhooks</span>
-    <span className="px-3 py-1 rounded-full border">Client Proposal</span>
-    <span className="px-3 py-1 rounded-full border">Portfolio Case Study</span>
+    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Prompt Engineering</span>
+    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Zapier Multi-step</span>
+    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">n8n Workflows</span>
+    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">API/Webhooks</span>
+    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Client Proposal</span>
+    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Portfolio Case Study</span>
   </div>
 </section>
 {/* Course Levels */}
