@@ -389,34 +389,36 @@ export default function Page({
     </a>
   </div>
 </section>
-{/* FAQ Teaser */}
-<section className="py-16 bg-white">
-  <h2 className="text-center text-2xl font-semibold mb-10">
-    সাধারণ প্রশ্নোত্তর
-  </h2>
+{/* FAQ */}
+<section id="faq" className="py-16 bg-white">
+  <h2 className="text-center text-2xl font-semibold mb-3">সাধারণ প্রশ্নোত্তর</h2>
+  <p className="text-center text-sm text-gray-500 mb-10">সবচেয়ে বেশি করা প্রশ্ন ও উত্তর</p>
 
-  <div className="mx-auto max-w-4xl divide-y rounded-xl border bg-neutral-50">
-    <details className="p-5">
-      <summary className="font-medium cursor-pointer">
+  <div className="mx-auto max-w-3xl divide-y rounded-2xl border bg-neutral-50">
+    <details className="group p-5">
+      <summary className="flex justify-between items-center font-medium cursor-pointer">
         কিভাবে পেমেন্ট করবো?
+        <span className="transition-transform group-open:rotate-180">⌄</span>
       </summary>
       <p className="text-sm text-gray-600 mt-2">
         Bkash/Nagad/SSLCommerz এর মাধ্যমে নিরাপদ অনলাইন পেমেন্ট করা যাবে।
       </p>
     </details>
 
-    <details className="p-5">
-      <summary className="font-medium cursor-pointer">
+    <details className="group p-5">
+      <summary className="flex justify-between items-center font-medium cursor-pointer">
         কোর্স কিনলে কতদিন অ্যাক্সেস থাকবে?
+        <span className="transition-transform group-open:rotate-180">⌄</span>
       </summary>
       <p className="text-sm text-gray-600 mt-2">
         প্রতিটি কোর্সে লাইফটাইম অ্যাক্সেস থাকবে, সাথে ফ্রি আপডেট।
       </p>
     </details>
 
-    <details className="p-5">
-      <summary className="font-medium cursor-pointer">
+    <details className="group p-5">
+      <summary className="flex justify-between items-center font-medium cursor-pointer">
         ১ঃ১ সাপোর্ট সেশন কিভাবে বুক করবো?
+        <span className="transition-transform group-open:rotate-180">⌄</span>
       </summary>
       <p className="text-sm text-gray-600 mt-2">
         Dashboard থেকে সাপোর্ট সেশন স্লট সিলেক্ট করে সহজে বুক করা যাবে।
@@ -427,7 +429,7 @@ export default function Page({
   <div className="text-center mt-10">
     <a
       href="/faq"
-      className="px-6 py-3 rounded-md text-white font-medium"
+      className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-white font-medium hover:opacity-95"
       style={{ background: "var(--brand-primary)" }}
     >
       সব FAQ দেখুন
