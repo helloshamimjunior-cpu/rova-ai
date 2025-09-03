@@ -1,7 +1,5 @@
-import { Briefcase, Users, Target, CreditCard } from "lucide-react";
-import { Settings, FileText, FolderOpen, Briefcase } from "lucide-react";
+import { Briefcase, Users, Target, CreditCard, Settings, FileText, FolderOpen } from "lucide-react";
 import Link from "next/link";
-
 export default function Page({
   searchParams,
 }: {
