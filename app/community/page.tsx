@@ -1,25 +1,31 @@
-// app/community/page.tsx
-import Link from "next/link";
-
-export default function Page() {
+export default function CommunityPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-      <h1 className="text-3xl font-semibold mb-4">Community — Coming soon</h1>
-      <p className="text-gray-600 mb-6">
-        এখানে পরে Forum/Discussion এমবেড হবে।
+    <section className="py-16">
+      <h1 className="text-3xl font-semibold text-center mb-3">Community</h1>
+      <p className="text-center text-gray-600 mb-10">
+        শিগগিরই লাইভ হবে—Discord/FB গ্রুপ, লাইভ সেশন, জব-লিডস।
       </p>
-      <div className="flex gap-3 justify-center">
-        <Link href="/courses" className="px-4 py-2 rounded-md border">
-          Courses
-        </Link>
-        <Link
-          href="/"
-          className="px-4 py-2 rounded-md text-white"
-          style={{ background: "var(--brand-primary)" }}
+
+      <div className="mx-auto max-w-3xl grid gap-4 sm:grid-cols-2">
+        <a
+          href="#"
+          className="rounded-xl border p-6 text-center hover:shadow transition bg-white"
         >
-          Back to Home
-        </Link>
+          <div className="text-lg font-medium mb-1">Discord</div>
+          <div className="text-sm text-gray-600">চ্যাট, প্রশ্নোত্তর, স্টাডি রুম</div>
+        </a>
+        <a
+          href="#"
+          className="rounded-xl border p-6 text-center hover:shadow transition bg-white"
+        >
+          <div className="text-lg font-medium mb-1">Facebook Group</div>
+          <div className="text-sm text-gray-600">আপডেট, হাইলাইটস, ইভেন্ট</div>
+        </a>
       </div>
-    </div>
+
+      <p className="text-center text-sm text-gray-500 mt-8">
+        আপাতত—<a href="/faq" className="underline">FAQ</a> দেখুন বা <a href="/contact" className="underline">Contact</a> এ মেসেজ দিন।
+      </p>
+    </section>
   );
 }
