@@ -245,16 +245,15 @@ export default function Page({
   </div>
 </section>
 {/* Curriculum Preview */}
-<section className="py-16 bg-white">
-  <h2 className="text-center text-2xl font-semibold mb-10">
-    কারিকুলাম ঝলক
-  </h2>
+<section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+  <h2 className="text-center text-3xl font-bold mb-12">কারিকুলাম ঝলক</h2>
 
-  <div className="mx-auto max-w-6xl grid gap-6 md:grid-cols-2">
+  {/* Cards */}
+  <div className="mx-auto max-w-6xl grid gap-8 md:grid-cols-2">
     {/* Basic */}
-    <div className="rounded-xl border bg-neutral-50 p-6">
-      <div className="text-lg font-semibold mb-2">Basic — ৳১,৫০০</div>
-      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+    <div className="rounded-2xl border shadow-sm bg-white p-6 hover:shadow-md transition">
+      <div className="text-xl font-semibold mb-3 text-blue-600">Basic — ৳১,৫০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
         <li>Prompt Engineering (Foundations)</li>
         <li>Zapier Basics (Single-step)</li>
         <li>Mini Project: Content Helper</li>
@@ -262,9 +261,9 @@ export default function Page({
     </div>
 
     {/* Intermediate */}
-    <div className="rounded-xl border bg-neutral-50 p-6">
-      <div className="text-lg font-semibold mb-2">Intermediate — ৳২,৫০০</div>
-      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+    <div className="rounded-2xl border shadow-sm bg-white p-6 hover:shadow-md transition">
+      <div className="text-xl font-semibold mb-3 text-green-600">Intermediate — ৳২,৫০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
         <li>Zapier Multi-step Workflow</li>
         <li>n8n পরিচিতি + Triggers</li>
         <li>API/Webhook Integrations</li>
@@ -273,9 +272,9 @@ export default function Page({
     </div>
 
     {/* Advanced */}
-    <div className="rounded-xl border bg-neutral-50 p-6">
-      <div className="text-lg font-semibold mb-2">Advanced — ৳৬,০০০</div>
-      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+    <div className="rounded-2xl border shadow-sm bg-white p-6 hover:shadow-md transition">
+      <div className="text-xl font-semibold mb-3 text-purple-600">Advanced — ৳৬,০০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
         <li>Client Workflow Design (Discovery → SOP)</li>
         <li>AI Agents Basics (LangChain/Tools)</li>
         <li>Freelance Project Setup & Handover</li>
@@ -284,9 +283,9 @@ export default function Page({
     </div>
 
     {/* Micro */}
-    <div className="rounded-xl border bg-neutral-50 p-6">
-      <div className="text-lg font-semibold mb-2">Micro — ৳৫০০–৳৮০০</div>
-      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+    <div className="rounded-2xl border shadow-sm bg-white p-6 hover:shadow-md transition">
+      <div className="text-xl font-semibold mb-3 text-pink-600">Micro — ৳৫০০–৳৮০০</div>
+      <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2">
         <li>Topic-based Mini Courses</li>
         <li>Short Workshops (2–3 hrs)</li>
         <li>Practice Tasks + Checklists</li>
@@ -295,24 +294,18 @@ export default function Page({
   </div>
 
   {/* Support & credits */}
-  <div className="mx-auto max-w-6xl mt-8 grid gap-4 md:grid-cols-3">
-    <div className="rounded-xl border bg-white p-5">
-      <div className="font-semibold mb-1">ফ্রি ৫ ক্রেডিট</div>
-      <p className="text-sm text-gray-600">
-        শুরুতেই বেসিক কনটেন্ট/টাস্ক আনলক।
-      </p>
+  <div className="mx-auto max-w-6xl mt-12 grid gap-6 md:grid-cols-3">
+    <div className="rounded-xl border bg-gradient-to-r from-blue-50 to-white p-6 text-center shadow-sm">
+      <div className="font-bold mb-2 text-blue-600">ফ্রি ৫ ক্রেডিট</div>
+      <p className="text-sm text-gray-600">শুরুতেই বেসিক কনটেন্ট/টাস্ক আনলক।</p>
     </div>
-    <div className="rounded-xl border bg-white p-5">
-      <div className="font-semibold mb-1">সাবস্ক্রিপশন</div>
-      <p className="text-sm text-gray-600">
-        ৳৭০০/মাসে ১৫ ক্রেডিট · Premium ৳১,২০০ · Pro ৳২,০০০
-      </p>
+    <div className="rounded-xl border bg-gradient-to-r from-yellow-50 to-white p-6 text-center shadow-sm">
+      <div className="font-bold mb-2 text-yellow-600">সাবস্ক্রিপশন</div>
+      <p className="text-sm text-gray-600">৳৭০০/মাসে ১৫ ক্রেডিট · Premium ৳১,২০০ · Pro ৳২,০০০</p>
     </div>
-    <div className="rounded-xl border bg-white p-5">
-      <div className="font-semibold mb-1">Extra Bundles</div>
-      <p className="text-sm text-gray-600">
-        ৫/২০/৫০ credits · Workshop/Portfolio Review
-      </p>
+    <div className="rounded-xl border bg-gradient-to-r from-green-50 to-white p-6 text-center shadow-sm">
+      <div className="font-bold mb-2 text-green-600">Extra Bundles</div>
+      <p className="text-sm text-gray-600">৫/২০/৫০ credits · Workshop/Portfolio Review</p>
     </div>
   </div>
 </section>
