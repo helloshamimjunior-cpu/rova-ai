@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
 type ProductKey = "basic" | "intermediate" | "advanced" | "micro";
