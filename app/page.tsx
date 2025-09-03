@@ -191,14 +191,26 @@ export default function Page({
   </div>
 
   {/* Quick skill badges */}
-  <div className="mt-8 flex flex-wrap justify-center gap-2 text-sm">
-    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Prompt Engineering</span>
-    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Zapier Multi-step</span>
-    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">n8n Workflows</span>
-    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">API/Webhooks</span>
-    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Client Proposal</span>
-    <span className="px-3 py-1 rounded-full border bg-gray-50 hover:bg-gray-100 transition">Portfolio Case Study</span>
-  </div>
+<div className="mt-8 flex flex-wrap justify-center gap-2 text-sm">
+  <Link href="/skills/prompt-engineering" className="px-3 py-1 rounded-full border hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white transition">
+    Prompt Engineering
+  </Link>
+  <Link href="/skills/zapier" className="px-3 py-1 rounded-full border hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white transition">
+    Zapier Multi-step
+  </Link>
+  <Link href="/skills/n8n" className="px-3 py-1 rounded-full border hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white transition">
+    n8n Workflows
+  </Link>
+  <Link href="/skills/api-webhooks" className="px-3 py-1 rounded-full border hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white transition">
+    API/Webhooks
+  </Link>
+  <Link href="/skills/client-proposal" className="px-3 py-1 rounded-full border hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white transition">
+    Client Proposal
+  </Link>
+  <Link href="/skills/portfolio-case-study" className="px-3 py-1 rounded-full border hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white transition">
+    Portfolio Case Study
+  </Link>
+</div>
 </section>
 {/* Course Levels */}
 <section className="py-16">
