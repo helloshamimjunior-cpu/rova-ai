@@ -310,77 +310,82 @@ export default function Page({
   </div>
 </section>
 {/* Testimonials */}
-<section className="py-16">
-  <h2 className="text-center text-2xl font-semibold mb-10">
-    শিক্ষার্থীদের অভিজ্ঞতা
-  </h2>
+<section id="reviews" className="py-16">
+  <h2 className="text-center text-2xl font-semibold mb-3">শিক্ষার্থীদের অভিজ্ঞতা</h2>
+  <p className="text-center text-sm text-gray-500 mb-10">রিয়াল প্রজেক্ট + ১ঃ১ সাপোর্ট—ফলাফল নিজেরাই বলছে</p>
 
   <div className="mx-auto max-w-6xl grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-    {/* Testimonial 1 */}
-    <div className="rounded-xl border bg-white p-6 shadow-sm">
-      <p className="text-sm text-gray-700 mb-4">
-        “Rova AI কোর্স করার পরেই প্রথম ফ্রিল্যান্স প্রজেক্ট পেলাম। হাতে-কলমে
-        প্র্যাকটিস খুব হেল্প করেছে।”
-      </p>
-      <div className="flex items-center gap-3">
+    {/* 1 */}
+    <article className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition">
+      <div className="flex items-start gap-3">
+        <span className="text-2xl leading-none">“</span>
+        <p className="text-sm text-gray-700">
+          Rova AI কোর্স করার পরেই প্রথম ফ্রিল্যান্স প্রজেক্ট পেলাম। হাতে-কলমে প্র্যাকটিস খুব কাজে দিয়েছে।
+        </p>
+      </div>
+      <div className="mt-5 flex items-center gap-3">
         <img
-          src="https://ui-avatars.com/api/?name=Sadia+Rahman&background=2D6EEA&color=fff"
+          src="https://ui-avatars.com/api/?name=Sadia+Rahman&background=2D6EEA&color=fff&size=56"
           alt="Sadia Rahman"
-          className="rounded-full"
+          className="rounded-full h-14 w-14"
         />
         <div>
           <div className="font-semibold text-sm">সাদিয়া রহমান</div>
           <div className="text-xs text-gray-500">Freelancer</div>
         </div>
       </div>
-    </div>
+    </article>
 
-    {/* Testimonial 2 */}
-    <div className="rounded-xl border bg-white p-6 shadow-sm">
-      <p className="text-sm text-gray-700 mb-4">
-        “Dashboard আর মেন্টর সাপোর্টের কারণে শেখাটা অনেক সহজ লেগেছে।”
-      </p>
-      <div className="flex items-center gap-3">
+    {/* 2 */}
+    <article className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition">
+      <div className="flex items-start gap-3">
+        <span className="text-2xl leading-none">“</span>
+        <p className="text-sm text-gray-700">
+          Dashboard আর মেন্টর সাপোর্টের জন্য শেখাটা দ্রুত হয়েছে। টেমপ্লেট + SOP গুলো সোনার খনি।
+        </p>
+      </div>
+      <div className="mt-5 flex items-center gap-3">
         <img
-          src="https://ui-avatars.com/api/?name=Mahin+Islam&background=F9A826&color=fff"
+          src="https://ui-avatars.com/api/?name=Mahin+Islam&background=F9A826&color=fff&size=56"
           alt="Mahin Islam"
-          className="rounded-full"
+          className="rounded-full h-14 w-14"
         />
         <div>
           <div className="font-semibold text-sm">মাহিন ইসলাম</div>
           <div className="text-xs text-gray-500">Junior Automation Specialist</div>
         </div>
       </div>
-    </div>
+    </article>
 
-    {/* Testimonial 3 */}
-    <div className="rounded-xl border bg-white p-6 shadow-sm">
-      <p className="text-sm text-gray-700 mb-4">
-        “Portfolio Review আর প্র্যাকটিক্যাল প্রজেক্টে জব ইন্টারভিউ ক্লিয়ার করতে
-        সাহায্য করেছে।”
-      </p>
-      <div className="flex items-center gap-3">
+    {/* 3 */}
+    <article className="rounded-2xl border bg-white p-6 shadow-sm hover:shadow-md transition">
+      <div className="flex items-start gap-3">
+        <span className="text-2xl leading-none">“</span>
+        <p className="text-sm text-gray-700">
+          Portfolio review + কেস স্টাডি রেডি থাকায় ইন্টারভিউ ক্লিয়ার করা সহজ হয়েছে।
+        </p>
+      </div>
+      <div className="mt-5 flex items-center gap-3">
         <img
-          src="https://ui-avatars.com/api/?name=Tanvir+Ahmed&background=10B981&color=fff"
+          src="https://ui-avatars.com/api/?name=Tanvir+Ahmed&background=10B981&color=fff&size=56"
           alt="Tanvir Ahmed"
-          className="rounded-full"
+          className="rounded-full h-14 w-14"
         />
         <div>
           <div className="font-semibold text-sm">তানভীর আহমেদ</div>
           <div className="text-xs text-gray-500">Automation Engineer</div>
         </div>
       </div>
-    </div>
+    </article>
   </div>
 
-  {/* CTA */}
   <div className="text-center mt-10">
     <a
       href="/reviews"
-      className="px-6 py-3 rounded-md text-white font-medium"
+      className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-white font-medium hover:opacity-95"
       style={{ background: "var(--brand-primary)" }}
     >
-      আরও শিক্ষার্থীর রিভিউ দেখুন
+      আরও রিভিউ দেখুন
     </a>
   </div>
 </section>
