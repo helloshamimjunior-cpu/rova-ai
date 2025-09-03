@@ -1,4 +1,10 @@
-import { Briefcase, Users, Target, CreditCard, Settings, FileText, FolderOpen } from "lucide-react";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @next/next/no-img-element */
+import {
+  Briefcase, Users, Target, CreditCard,
+  Settings, FileText, FolderOpen,
+  BookOpen, Layers, Rocket
+} from "lucide-react";
 import Link from "next/link";
 export default function Page({
   searchParams,
@@ -186,7 +192,6 @@ export default function Page({
     <span className="px-3 py-1 rounded-full border">Portfolio Case Study</span>
   </div>
 </section>
-import { BookOpen, Layers, Rocket, Target } from "lucide-react";
 
 {/* Course Levels */}
 <section className="py-16">
