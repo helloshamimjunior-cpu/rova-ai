@@ -10,8 +10,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <Link href="/" className="flex items-center gap-2 font-semibold mb-3">
-            <Image src="/logo.png" alt="Rova AI" width={32} height={32} />
-            <span className="text-lg font-bold">Rova AI Academy</span>
+            <Image src="/logo.png" alt="Rova AI" width={120} height={40} />
           </Link>
           <p className="text-sm text-gray-600">
             হাতে-কলমে AI Automation শেখার প্ল্যাটফর্ম। ক্যারিয়ার এগিয়ে নিতে
