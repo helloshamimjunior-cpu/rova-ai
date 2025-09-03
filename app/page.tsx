@@ -298,15 +298,21 @@ export default function Page({
   <div className="mx-auto max-w-6xl mt-8 grid gap-4 md:grid-cols-3">
     <div className="rounded-xl border bg-white p-5">
       <div className="font-semibold mb-1">ফ্রি ৫ ক্রেডিট</div>
-      <p className="text-sm text-gray-600">শুরুতেই বেসিক কনটেন্ট/টাস্ক আনলক।</p>
+      <p className="text-sm text-gray-600">
+        শুরুতেই বেসিক কনটেন্ট/টাস্ক আনলক।
+      </p>
     </div>
     <div className="rounded-xl border bg-white p-5">
       <div className="font-semibold mb-1">সাবস্ক্রিপশন</div>
-      <p className="text-sm text-gray-600">৳৭০০/মাসে ১৫ ক্রেডিট · Premium ৳১,২০০ · Pro ৳২,০০০</p>
+      <p className="text-sm text-gray-600">
+        ৳৭০০/মাসে ১৫ ক্রেডিট · Premium ৳১,২০০ · Pro ৳২,০০০
+      </p>
     </div>
     <div className="rounded-xl border bg-white p-5">
       <div className="font-semibold mb-1">Extra Bundles</div>
-      <p className="text-sm text-gray-600">৫/২০/৫০ credits · Workshop/Portfolio Review</p>
+      <p className="text-sm text-gray-600">
+        ৫/২০/৫০ credits · Workshop/Portfolio Review
+      </p>
     </div>
   </div>
 </section>
