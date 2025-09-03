@@ -1,18 +1,67 @@
-import Link from "next/link";
+import Link from "next/link"
 
-export default function Page() {
+const plans = [
+  {
+    id: "basic",
+    name: "Basic",
+    price: "৳3,000",
+    features: [
+      "শুরু করার জন্য কনটেন্ট",
+      "ভিডিও লেকচার",
+      "বেসিক কুইজ",
+    ],
+  },
+  {
+    id: "intermediate",
+    name: "Intermediate",
+    price: "৳6,000",
+    features: [
+      "প্রজেক্ট ভিত্তিক কাজ",
+      "কমিউনিটি সাপোর্ট",
+      "অ্যাসাইনমেন্ট ফিডব্যাক",
+    ],
+  },
+  {
+    id: "advanced",
+    name: "Advanced",
+    price: "৳12,000",
+    features: [
+      "সব Intermediate সুবিধা",
+      "লাইভ 1:1 সাপোর্ট",
+      "পোর্টফোলিও রিভিউ",
+    ],
+  },
+]
+
+export default function PricingPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-      <h1 className="text-3xl font-semibold mb-4">Pricing — Coming soon</h1>
-      <p className="text-gray-600 mb-6">
-        এই পেজটা Phase-2 তে full pricing + subscriptions দেখাবে।
-      </p>
-      <div className="flex gap-3 justify-center">
-        <Link href="/courses" className="px-4 py-2 rounded-md border">Courses</Link>
-        <Link href="/" className="px-4 py-2 rounded-md text-white" style={{ background: "var(--brand-primary)" }}>
-          Back to Home
-        </Link>
+    <section className="max-w-6xl mx-auto px-4 py-16">
+      <h1 className="text-3xl font-bold text-center mb-12">কোর্স প্ল্যান</h1>
+
+      <div className="grid gap-8 md:grid-cols-3">
+        {plans.map((plan) => (
+          <div
+            key={plan.id}
+            className="rounded-2xl border bg-white shadow-sm hover:shadow-md transition p-6 flex flex-col"
+          >
+            <h2 className="text-xl font-semibold mb-2">{plan.name}</h2>
+            <p className="text-2xl font-bold mb-4">{plan.price}</p>
+
+            <ul className="mb-6 space-y-2 text-gray-700 text-sm flex-1">
+              {plan.features.map((f) => (
+                <li key={f}>• {f}</li>
+              ))}
+            </ul>
+
+            <Link
+              href={`/enroll?product=${plan.id}`}
+              className="block text-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 hover:opacity-90 transition"
+            >
+              এনরোল করো
+            </Link>
+          </div>
+        ))}
       </div>
-    </div>
-  );
+    </section>
+  )
 }
