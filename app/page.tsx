@@ -186,6 +186,8 @@ export default function Page({
     <span className="px-3 py-1 rounded-full border">Portfolio Case Study</span>
   </div>
 </section>
+import { BookOpen, Layers, Rocket, Target } from "lucide-react";
+
 {/* Course Levels */}
 <section className="py-16">
   <h2 className="text-center text-2xl font-semibold mb-10">
@@ -194,41 +196,61 @@ export default function Page({
 
   <div className="mx-auto max-w-6xl grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
     {/* Basic */}
-    <div className="rounded-xl border bg-white p-6 text-center">
+    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+      <BookOpen className="h-8 w-8 text-blue-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Basic</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳১,৫০০</div>
       <p className="text-sm text-gray-600 mb-4">Prompt Engineering, Zapier Basics</p>
-      <a href="/courses/basic" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{background:"var(--brand-primary)"}}>
+      <a
+        href="/courses/basic"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
 
     {/* Intermediate */}
-    <div className="rounded-xl border bg-white p-6 text-center">
+    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+      <Layers className="h-8 w-8 text-green-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Intermediate</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳২,৫০০</div>
       <p className="text-sm text-gray-600 mb-4">Zapier Multi-step, API Integrations</p>
-      <a href="/courses/intermediate" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{background:"var(--brand-primary)"}}>
+      <a
+        href="/courses/intermediate"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
 
     {/* Advanced */}
-    <div className="rounded-xl border bg-white p-6 text-center">
+    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+      <Rocket className="h-8 w-8 text-purple-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Advanced</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳৬,০০০</div>
       <p className="text-sm text-gray-600 mb-4">Client workflow design, AI Agents, Freelance setup</p>
-      <a href="/courses/advanced" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{background:"var(--brand-primary)"}}>
+      <a
+        href="/courses/advanced"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
 
     {/* Micro */}
-    <div className="rounded-xl border bg-white p-6 text-center">
+    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+      <Target className="h-8 w-8 text-pink-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Micro</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳৫০০–৳৮০০</div>
       <p className="text-sm text-gray-600 mb-4">Topic-based mini courses</p>
-      <a href="/courses/micro" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{background:"var(--brand-primary)"}}>
+      <a
+        href="/courses/micro"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
