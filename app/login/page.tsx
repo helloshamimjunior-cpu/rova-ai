@@ -1,52 +1,38 @@
 "use client";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function LoginPage() {
-  const [form, setForm] = useState({
-    identifier: "", // 👉 এখানে email or mobile number যেকোনো একটা আসবে
-    password: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Login submitted:", form);
-    // 👉 Backend / Firebase এ identifier check করতে হবে
-  };
-
   return (
     <section className="min-h-screen flex items-center justify-center bg-neutral-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow">
-        <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
+        <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+
+        <form className="space-y-4">
           <input
             type="text"
-            name="identifier"
-            placeholder="Email or Mobile Number"
-            value={form.identifier}
-            onChange={handleChange}
-            className="w-full rounded-md border px-3 py-2"
-            required
+            placeholder="Email or Mobile"
+            className="w-full border rounded-md px-3 py-2"
           />
           <input
             type="password"
-            name="password"
             placeholder="Password"
-            value={form.password}
-            onChange={handleChange}
-            className="w-full rounded-md border px-3 py-2"
-            required
+            className="w-full border rounded-md px-3 py-2"
           />
           <button
             type="submit"
-            className="w-full rounded-md bg-[color:var(--brand-primary)] py-2 text-white font-medium"
+            className="w-full py-2 rounded-md text-white font-medium"
+            style={{ background: "var(--brand-primary)" }}
           >
             Login
           </button>
         </form>
+
+        <p className="text-sm text-center mt-4">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="text-[color:var(--brand-primary)] font-medium">
+            Sign up
+          </Link>
+        </p>
       </div>
     </section>
   );
