@@ -8,7 +8,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b bg-white">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Image src="/logo.svg" alt="Rova AI" width={28} height={28} />
+          <Image src="/logo.png" alt="Rova AI" width={28} height={28} />
           <span>Rova AI Academy</span>
         </Link>
 
@@ -24,7 +24,6 @@ export default function Header() {
           <Suspense fallback={null}>
             <LangToggle />
           </Suspense>
-
           <Link href="/login" className="text-sm">Login</Link>
           <Link href="/signup" className="text-sm">Signup</Link>
           <Link
