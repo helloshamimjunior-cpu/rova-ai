@@ -1,8 +1,5 @@
-"use client"
-
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { useSearchParams, useRouter } from "next/navigation"
+// app/reviews/page.tsx
+import Link from "next/link"
 
 const reviews = [
   { id: 1, name: "রাহিম উদ্দিন", role: "স্টুডেন্ট (Basic)", text: "কোর্সের কনটেন্ট পরিষ্কার, সহজে বোঝা যায়।" },
@@ -19,18 +16,18 @@ const reviews = [
 
 const PER_PAGE = 6
 
-export default function ReviewsPage() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const page = parseInt(searchParams.get("page") || "1", 10)
-
+export default function ReviewsPage({
+  searchParams,
+}: {
+  searchParams: { page?: string }
+}) {
+  const page = Math.max(1, parseInt(searchParams.page ?? "1", 10) || 1)
   const totalPages = Math.ceil(reviews.length / PER_PAGE)
   const start = (page - 1) * PER_PAGE
   const paginated = reviews.slice(start, start + PER_PAGE)
 
-  const goToPage = (p: number) => {
-    router.push(`/reviews?page=${p}`)
-  }
+  const prevHref = `?page=${Math.max(1, page - 1)}`
+  const nextHref = `?page=${Math.min(totalPages, page + 1)}`
 
   return (
     <section className="max-w-5xl mx-auto px-4 py-12">
@@ -38,35 +35,39 @@ export default function ReviewsPage() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {paginated.map((r) => (
-          <Card key={r.id} className="rounded-2xl shadow-sm hover:shadow-md transition">
-            <CardContent className="p-6">
+          <div key={r.id} className="rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+            <div className="p-6">
               <p className="text-gray-700 mb-4">“{r.text}”</p>
               <p className="font-semibold">{r.name}</p>
               <p className="text-sm text-gray-500">{r.role}</p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
 
-      {/* pagination */}
+      {/* pagination (লিঙ্ক-ভিত্তিক, কোন ক্লায়েন্ট হুক নেই) */}
       <div className="flex justify-center items-center gap-4 mt-10">
-        <Button
-          variant="outline"
-          disabled={page <= 1}
-          onClick={() => goToPage(page - 1)}
-        >
-          ← আগের
-        </Button>
-        <span className="text-gray-600">
-          পৃষ্ঠা {page} এর {totalPages}
-        </span>
-        <Button
-          variant="outline"
-          disabled={page >= totalPages}
-          onClick={() => goToPage(page + 1)}
-        >
-          পরের →
-        </Button>
+        {page > 1 ? (
+          <Link href={prevHref} className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50">
+            ← আগের
+          </Link>
+        ) : (
+          <span className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-200 text-gray-400 cursor-not-allowed">
+            ← আগের
+          </span>
+        )}
+
+        <span className="text-gray-600">পৃষ্ঠা {page} এর {totalPages}</span>
+
+        {page < totalPages ? (
+          <Link href={nextHref} className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50">
+            পরের →
+          </Link>
+        ) : (
+          <span className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-200 text-gray-400 cursor-not-allowed">
+            পরের →
+          </span>
+        )}
       </div>
     </section>
   )
