@@ -7,8 +7,8 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-10 grid gap-6 md:grid-cols-3">
         <div>
           <Link href="/" className="flex items-center gap-2 font-semibold mb-2">
-            <Image src="/logo.png" alt="Rova AI" width={28} height={28} />
-            <span>Rova AI Academy</span>
+            <Image src="/logo.png" alt="Rova AI" width={120} height={40} priority />
+            <span className="sr-only">Rova AI Academy</span>
           </Link>
           <p className="text-sm text-neutral-600">সাপ্তাহিক AI টিপস ও জব হাইলাইটস</p>
         </div>
@@ -27,8 +27,14 @@ export default function Footer() {
         </div>
 
         <form className="flex gap-2">
-          <input placeholder="Email" className="flex-1 rounded-md border px-3 py-2" />
-          <button className="rounded-md px-3 py-2 text-white" style={{ background: "#F9A826" }}>
+          <input
+            placeholder="Email"
+            className="flex-1 rounded-md border px-3 py-2"
+          />
+          <button
+            className="rounded-md px-3 py-2 text-white"
+            style={{ background: "#F9A826" }}
+          >
             Subscribe
           </button>
         </form>
