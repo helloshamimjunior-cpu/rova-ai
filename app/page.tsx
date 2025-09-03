@@ -194,51 +194,65 @@ export default function Page({
 </section>
 {/* Course Levels */}
 <section className="py-16">
-  <h2 id="pricing" className="text-center text-2xl font-semibold mb-10">
-    কোর্স লেভেল ও প্রাইসিং
-  </h2>
+  <h2 className="text-center text-2xl font-semibold mb-10">কোর্স লেভেল ও প্রাইসিং</h2>
 
   <div className="mx-auto max-w-6xl grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
     {/* Basic */}
-    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+    <div className="rounded-xl border bg-gradient-to-b from-blue-50 to-white p-6 text-center hover:shadow-md transition">
       <BookOpen className="h-8 w-8 text-blue-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Basic</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳১,৫০০</div>
       <p className="text-sm text-gray-600 mb-4">Prompt Engineering, Zapier Basics</p>
-      <a href="/enroll?product=basic" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{ background: "var(--brand-primary)" }}>
+      <a
+        href="/enroll?product=basic"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
 
     {/* Intermediate */}
-    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+    <div className="rounded-xl border bg-gradient-to-b from-green-50 to-white p-6 text-center hover:shadow-md transition">
       <Layers className="h-8 w-8 text-green-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Intermediate</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳২,৫০০</div>
       <p className="text-sm text-gray-600 mb-4">Zapier Multi-step, API Integrations</p>
-      <a href="/enroll?product=intermediate" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{ background: "var(--brand-primary)" }}>
+      <a
+        href="/enroll?product=intermediate"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
 
     {/* Advanced */}
-    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+    <div className="rounded-xl border bg-gradient-to-b from-purple-50 to-white p-6 text-center hover:shadow-md transition">
       <Rocket className="h-8 w-8 text-purple-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Advanced</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳৬,০০০</div>
       <p className="text-sm text-gray-600 mb-4">Client workflow design, AI Agents, Freelance setup</p>
-      <a href="/enroll?product=advanced" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{ background: "var(--brand-primary)" }}>
+      <a
+        href="/enroll?product=advanced"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
 
     {/* Micro */}
-    <div className="rounded-xl border bg-white p-6 text-center hover:shadow-md transition">
+    <div className="rounded-xl border bg-gradient-to-b from-pink-50 to-white p-6 text-center hover:shadow-md transition">
       <Target className="h-8 w-8 text-pink-600 mx-auto mb-3" />
       <div className="text-lg font-semibold mb-2">Micro</div>
       <div className="text-2xl font-bold text-[color:var(--brand-primary)] mb-3">৳৫০০–৳৮০০</div>
       <p className="text-sm text-gray-600 mb-4">Topic-based mini courses</p>
-      <a href="/enroll?product=micro" className="px-4 py-2 rounded-md text-white text-sm font-medium" style={{ background: "var(--brand-primary)" }}>
+      <a
+        href="/enroll?product=micro"
+        className="px-4 py-2 rounded-md text-white text-sm font-medium"
+        style={{ background: "var(--brand-primary)" }}
+      >
         ভর্তি হন
       </a>
     </div>
