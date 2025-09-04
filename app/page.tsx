@@ -135,28 +135,37 @@ export default function Page({
   </div>
 </section>
 
-{/* Social Proof (REPLACE THIS BLOCK) */}
-<section className="py-12 bg-white">
-  <div className="mx-auto max-w-6xl px-4 flex flex-col items-center gap-4">
-    <div className="flex -space-x-3">
-      {["Sadia Rahman","Mahin Islam","Tanvir Ahmed","Nadia Khan","Rafiul"].map((n, i) => (
-        <Image
-          key={i}
-          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(n)}&background=E5E7EB&color=111827&size=64`}
-          alt={n}
-          width={40}
-          height={40}
-          className="h-10 w-10 rounded-full ring-2 ring-white"
-        />
-      ))}
+{/* Social Proof */}
+<section className="py-12">
+  <div className="mx-auto max-w-6xl px-4">
+    <div className="group mx-auto flex w-fit items-center gap-3 rounded-2xl border border-neutral-200/70 bg-white/70 p-2 pl-3 pr-4 shadow-sm backdrop-blur-sm ring-1 ring-neutral-900/5 transition-all duration-300 hover:shadow-md dark:border-neutral-800/60 dark:bg-neutral-900/50 dark:ring-white/10">
+      {/* Avatar stack (initials) */}
+      <ul className="flex -space-x-2">
+        {["Sadia Rahman","Mahin Islam","Tanvir Ahmed","Nadia Khan","Rafiul"].map((n) => {
+          const initials = n.split(" ").map(w => w[0]).join("").slice(0,2).toUpperCase();
+          return (
+            <li key={n}>
+              <span
+                aria-label={n}
+                className="grid h-9 w-9 place-content-center rounded-full border border-white/70 bg-gradient-to-br from-neutral-100 to-neutral-200 text-[11px] font-semibold tracking-wide text-neutral-700 shadow-sm ring-1 ring-neutral-900/5 dark:border-neutral-900/40 dark:from-neutral-700 dark:to-neutral-800 dark:text-neutral-100"
+              >
+                {initials}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+
+      <p className="text-sm text-neutral-600 dark:text-neutral-300">
+        Trusted by{" "}
+        <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text font-semibold text-transparent">
+          300+ শিক্ষার্থী
+        </span>
+        <span className="hidden sm:inline"> — প্রতি সপ্তাহে বাড়ছে</span>.
+      </p>
     </div>
-    <p className="text-sm text-neutral-600">
-      Trusted by <span className="font-semibold text-neutral-900">300+ learners</span> — growing every week.
-    </p>
   </div>
 </section>
-
-
       {/* Why Rova AI */}
       <section className="py-16 bg-white">
         <h2 className="text-center text-2xl font-semibold mb-10">কেন Rova AI Academy?</h2>
