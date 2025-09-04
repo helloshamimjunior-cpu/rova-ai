@@ -13,9 +13,9 @@ type Pack = {
 };
 
 const PACKS: Pack[] = [
-  { id: "starter", title: "Starter", credits: 100, price: 990 },
-  { id: "plus", title: "Plus", credits: 300, price: 2790, badge: "Popular" },
-  { id: "pro", title: "Pro", credits: 1000, price: 8900, badge: "Best value" },
+  { id: "starter", title: "Starter", credits: 15, price: 750 },
+  { id: "plus", title: "Plus", credits: 60, price: 2500, badge: "Popular" },
+  { id: "pro", title: "Pro", credits: 120, price: 5000, badge: "Best value" },
 ];
 
 export default function BuyCreditsPage() {
@@ -31,7 +31,7 @@ export default function BuyCreditsPage() {
   const qty = typeof custom === "number" && custom > 0 ? custom : selectedPack.credits;
 
   // অনুমানভিত্তিক ডিসকাউন্ট: 300+=5%, 1000+=10% (চাইলে বদলে নেবেন)
-  const baseUnit = 12; // প্রতি ক্রেডিট বেস মূল্য (BDT) – UI ক্যাল্কের জন্য
+  const baseUnit = 50; // প্রতি ক্রেডিট বেস মূল্য (BDT) – UI ক্যাল্কের জন্য
   const undiscounted = qty * baseUnit;
   const discountRate = qty >= 1000 ? 0.1 : qty >= 300 ? 0.05 : 0;
   const discount = Math.round(undiscounted * discountRate);
