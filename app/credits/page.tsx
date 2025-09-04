@@ -18,28 +18,93 @@ const PACKS: Pack[] = [
   { id: "pro", title: "Pro", credits: 120, price: 5000, badge: "Best value" },
 ];
 
+// 🎟️ কুপন তালিকা: percent = শতাংশ, flat = নির্দিষ্ট টাকা
+const COUPONS = {
+  OFF5:   { type: "percent", value: 5,  label: "5% off" },
+  OFF10:  { type: "percent", value: 10, label: "10% off" },
+  BDT200: { type: "flat",    value: 200, label: "৳200 off" },
+  STUDENT15: { type: "percent", value: 15, label: "Student 15% (demo)" },
+} as const;
+
+type CouponKey = keyof typeof COUPONS;
+
 export default function BuyCreditsPage() {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<Pack["id"]>("plus");
   const [custom, setCustom] = useState<number | "">("");
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCode, setAppliedCode] = useState<CouponKey | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
 
   const selectedPack = useMemo(
-    () => PACKS.find(p => p.id === selectedId)!,
+    () => PACKS.find((p) => p.id === selectedId)!,
     [selectedId]
   );
 
-  const qty = typeof custom === "number" && custom > 0 ? custom : selectedPack.credits;
+  // ক্রেডিট সংখ্যা (ইন্টিজার, ন্যূনতম 1)
+  const qty = Math.max(1, Math.floor(Number(custom || selectedPack.credits)));
 
-  // অনুমানভিত্তিক ডিসকাউন্ট: 300+=5%, 1000+=10% (চাইলে বদলে নেবেন)
-  const baseUnit = 50; // প্রতি ক্রেডিট বেস মূল্য (BDT) – UI ক্যাল্কের জন্য
-  const undiscounted = qty * baseUnit;
-  const discountRate = qty >= 1000 ? 0.1 : qty >= 300 ? 0.05 : 0;
-  const discount = Math.round(undiscounted * discountRate);
-  const total = Math.max(0, undiscounted - discount);
+  // রেট: নির্বাচিত প্যাকের প্রকৃত ইউনিট রেট (৳/ক্রেডিট)
+  const unitBDT = Math.max(1, Math.round(selectedPack.price / selectedPack.credits)) || 50;
 
+  // সাবটোটাল
+  const undiscounted = qty * unitBDT;
+
+  // Bulk tier discount
+  const bulkRate = qty >= 1000 ? 0.10 : qty >= 300 ? 0.05 : 0;
+  const bulkDiscount = Math.round(undiscounted * bulkRate);
+
+  // Coupon discount (যদি ভ্যালিড কুপন আপ্লাই থাকে)
+  const coupon = appliedCode ? COUPONS[appliedCode] : null;
+  const couponDiscount = coupon
+    ? coupon.type === "percent"
+      ? Math.round(undiscounted * (coupon.value / 100))
+      : Math.round(coupon.value)
+    : 0;
+
+  // ✅ Only one applies: যে ডিসকাউন্ট বেশি, সেটাই প্রযোজ্য
+  const bestDiscount = Math.min(Math.max(bulkDiscount, couponDiscount), undiscounted);
+  const discountSource =
+    bestDiscount === 0
+      ? null
+      : bestDiscount === couponDiscount && coupon
+        ? `Coupon (${coupon.label})`
+        : bulkRate > 0
+          ? `Bulk ${Math.round(bulkRate * 100)}%`
+          : null;
+
+  const total = Math.max(0, undiscounted - bestDiscount);
+
+  // Coupon apply/remove
+  function applyCoupon() {
+    const code = couponInput.trim().toUpperCase();
+    if (!code) {
+      setCouponError("কুপন কোড লিখুন");
+      return;
+    }
+    if ((COUPONS as Record<string, unknown>)[code]) {
+      setAppliedCode(code as CouponKey);
+      setCouponError(null);
+    } else {
+      setAppliedCode(null);
+      setCouponError("ইনভ্যালিড কুপন");
+    }
+  }
+  function removeCoupon() {
+    setAppliedCode(null);
+    setCouponError(null);
+    setCouponInput("");
+  }
+
+  // Checkout → enroll রুটে পাঠাই
   const handleCheckout = () => {
-    // কোর্স এনরোলের মতোই এনরোল রুট ব্যবহার করছি
-    router.push(`/enroll?product=credits&qty=${qty}&amount=${total}`);
+    const params = new URLSearchParams({
+      product: "credits",
+      qty: String(qty),
+      amount: String(total),
+    });
+    if (appliedCode) params.set("coupon", appliedCode);
+    router.push(`/enroll?${params.toString()}`);
   };
 
   return (
@@ -48,13 +113,15 @@ export default function BuyCreditsPage() {
         <header className="mb-8 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Buy Credits</h1>
           <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
-            যেকোনো প্যাক সিলেক্ট করুন বা কাস্টম ক্রেডিট লিখুন—চেকআউটে কোর্সের মতোই এগোবে।
+            প্যাক বেছে নিন বা কাস্টম ক্রেডিট দিন। Bulk tier (300+=5%, 1000+=10%) বা কুপন—যেটা বেশি ছাড় দেয়, সেটাই প্রযোজ্য।
           </p>
         </header>
 
+        {/* Packs */}
         <div className="grid gap-6 lg:grid-cols-3">
           {PACKS.map((p) => {
             const active = p.id === selectedId;
+            const perUnit = Math.max(1, Math.round(p.price / p.credits));
             return (
               <button
                 key={p.id}
@@ -76,23 +143,18 @@ export default function BuyCreditsPage() {
                 <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
                   {p.credits.toLocaleString()} credits
                 </p>
-                <p className="mt-4 text-2xl font-semibold">
-                  ৳{p.price.toLocaleString()}
-                </p>
-                <p className="mt-1 text-xs text-neutral-500">
-                  ~৳{Math.round(p.price / p.credits)}/credit
-                </p>
+                <p className="mt-4 text-2xl font-semibold">৳{p.price.toLocaleString()}</p>
+                <p className="mt-1 text-xs text-neutral-500">~৳{perUnit}/credit</p>
               </button>
             );
           })}
         </div>
 
-        {/* Custom input + Summary */}
+        {/* Custom + Coupon + Summary */}
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {/* Custom credits */}
           <div className="rounded-2xl border border-neutral-200/70 bg-white/70 p-5 ring-1 ring-neutral-900/5 backdrop-blur-sm dark:border-neutral-800/60 dark:bg-neutral-900/50 dark:ring-white/10">
-            <label className="block text-sm font-medium">
-              কাস্টম ক্রেডিট (ঐচ্ছিক)
-            </label>
+            <label className="block text-sm font-medium">কাস্টম ক্রেডিট (ঐচ্ছিক)</label>
             <input
               type="number"
               min={1}
@@ -106,8 +168,49 @@ export default function BuyCreditsPage() {
             <p className="mt-2 text-xs text-neutral-500">
               ফাঁকা রাখলে নির্বাচিত প্যাকের {selectedPack.credits} ক্রেডিট ধরা হবে।
             </p>
+
+            {/* Coupon */}
+            <div className="mt-5">
+              <label className="block text-sm font-medium">কুপন কোড</label>
+              <div className="mt-2 flex gap-2">
+                <input
+                  type="text"
+                  placeholder="OFF10, BDT200, STUDENT15…"
+                  value={couponInput}
+                  onChange={(e) => setCouponInput(e.target.value)}
+                  className="flex-1 rounded-lg border border-neutral-300/70 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:border-neutral-700 dark:bg-neutral-900"
+                />
+                {!appliedCode ? (
+                  <button
+                    onClick={applyCoupon}
+                    className="rounded-lg border border-indigo-500/70 px-3 py-2 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-600 hover:text-white dark:border-indigo-400/60 dark:text-indigo-200 dark:hover:bg-indigo-500"
+                  >
+                    Apply
+                  </button>
+                ) : (
+                  <button
+                    onClick={removeCoupon}
+                    className="rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-700 transition hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+              {appliedCode && (
+                <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/30 dark:text-emerald-200">
+                  Applied: {COUPONS[appliedCode].label}
+                </p>
+              )}
+              {couponError && (
+                <p className="mt-2 text-xs text-red-600">{couponError}</p>
+              )}
+              <p className="mt-2 text-xs text-neutral-500">
+                নোট: Bulk বা Coupon—**শুধু একটিই** প্রযোজ্য (যেটি বেশি ছাড় দেয়)।
+              </p>
+            </div>
           </div>
 
+          {/* Summary */}
           <div className="lg:col-span-2">
             <div className="rounded-2xl border border-neutral-200/70 bg-white/70 p-5 ring-1 ring-neutral-900/5 backdrop-blur-sm dark:border-neutral-800/60 dark:bg-neutral-900/50 dark:ring-white/10">
               <h4 className="text-sm font-semibold">অর্ডার সামারি</h4>
@@ -120,14 +223,46 @@ export default function BuyCreditsPage() {
                   <span>সাবটোটাল</span>
                   <span>৳{undiscounted.toLocaleString()}</span>
                 </div>
-                {discount > 0 && (
-                  <div className="flex items-center justify-between text-emerald-600">
-                    <span>ডিসকাউন্ট ({Math.round(discountRate * 100)}%)</span>
-                    <span>-৳{discount.toLocaleString()}</span>
-                  </div>
-                )}
+
+                {/* Discount lines */}
+                <div className="space-y-2">
+                  {/* Bulk line */}
+                  {bulkRate > 0 && (
+                    <div
+                      className={[
+                        "flex items-center justify-between",
+                        bestDiscount === bulkDiscount ? "text-emerald-600" : "text-neutral-400 line-through",
+                      ].join(" ")}
+                    >
+                      <span>Bulk discount ({Math.round(bulkRate * 100)}%)</span>
+                      <span>-৳{bulkDiscount.toLocaleString()}</span>
+                    </div>
+                  )}
+
+                  {/* Coupon line */}
+                  {appliedCode && (
+                    <div
+                      className={[
+                        "flex items-center justify-between",
+                        bestDiscount === couponDiscount ? "text-emerald-600" : "text-neutral-400 line-through",
+                      ].join(" ")}
+                    >
+                      <span>Coupon {COUPONS[appliedCode].label}</span>
+                      <span>-৳{couponDiscount.toLocaleString()}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Total */}
                 <div className="flex items-center justify-between border-t pt-3 font-semibold">
-                  <span>সর্বমোট</span>
+                  <span>
+                    সর্বমোট{" "}
+                    {discountSource ? (
+                      <em className="not-italic text-xs text-neutral-500">
+                        ({discountSource} applied)
+                      </em>
+                    ) : null}
+                  </span>
                   <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                     ৳{total.toLocaleString()}
                   </span>
