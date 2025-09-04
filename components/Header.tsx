@@ -1,3 +1,4 @@
+// components/Header.tsx
 "use client";
 import Link from "next/link";
 import Image from "next/image";
@@ -33,6 +34,21 @@ export default function Header() {
     return () => window.removeEventListener("mousedown", onDown);
   }, [open]);
 
+  // ESC + body scroll-lock (শুধু মোবাইলে ড্রপডাউন খোলা থাকলে)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    if (open) {
+      document.addEventListener("keydown", onKey);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   const isActive = (href: string) => (pathname || "").startsWith(href);
 
   function toggleLocale() {
@@ -46,7 +62,7 @@ export default function Header() {
   }
 
   return (
-    <header className="z-50 border-b border-neutral-200/60 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/70">
+    <header className="sticky top-0 z-50 border-b border-neutral-200/60 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-4 md:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400">
@@ -98,29 +114,34 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile dropdown (no scroll) */}
+      {/* Mobile dropdown (header-এর নিচে, no page scroll) */}
       <div
         className={[
-          "md:hidden fixed inset-0 z-[9999]",
+          "fixed inset-x-0 top-16 bottom-0 z-40 md:hidden overscroll-none",
           open ? "pointer-events-auto" : "pointer-events-none",
         ].join(" ")}
         aria-hidden={!open}
       >
-        {/* overlay */}
-        <div className={["absolute inset-0", open ? "bg-black/30" : "bg-transparent"].join(" ")} />
+        {/* overlay (header ঢাকে না) */}
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+          className={["absolute inset-0 transition-colors", open ? "bg-black/30" : "bg-transparent"].join(" ")}
+        />
 
-        {/* panel — header-এর নিচে, কনটেন্টের সমান height */}
+        {/* panel — header-এর নিচে */}
         <div
           ref={panelRef}
           className={[
-            "absolute left-1/2 -translate-x-1/2 top-16 w-[92%] max-w-sm rounded-2xl border border-neutral-200 bg-white shadow-2xl",
+            "absolute left-1/2 -translate-x-1/2 top-4 w-[92%] max-w-sm rounded-2xl border border-neutral-200 bg-white shadow-2xl",
             "transition-all duration-200",
             open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2",
           ].join(" ")}
           role="dialog"
           aria-modal="true"
         >
-          {/* Nav links (সব একসাথে, কোনো স্ক্রল নেই) */}
+          {/* Nav links (no scroll) */}
           <nav className="p-3 flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <Link
