@@ -56,9 +56,9 @@ export default function PricingPage() {
           return;
         }
       }
-      window.location.href = `/buy-credits?pack=${pack.id}`;
+      window.location.href = `/credits?pack=${pack.id}`;
     } catch {
-      window.location.href = `/buy-credits?pack=${pack.id}`;
+      window.location.href = `/credits?pack=${pack.id}`;
     } finally {
       setLoadingId(null);
     }
