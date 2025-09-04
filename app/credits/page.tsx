@@ -14,8 +14,8 @@ type Pack = {
 
 const PACKS: Pack[] = [
   { id: "starter", title: "Starter", credits: 15, price: 750 },
-  { id: "plus", title: "Plus", credits: 60, price: 2500, badge: "Popular" },
-  { id: "pro", title: "Pro", credits: 120, price: 5000, badge: "Best value" },
+  { id: "plus", title: "Plus", credits: 60, price: 3000, badge: "Popular" },
+  { id: "pro", title: "Pro", credits: 120, price: 6000, badge: "Best value" },
 ];
 
 // 🎟️ কুপন তালিকা: percent = শতাংশ, flat = নির্দিষ্ট টাকা
