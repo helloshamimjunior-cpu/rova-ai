@@ -3,13 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-
-// Minimal, clean, fully responsive header for Rova AI Academy
-// - Sticky, translucent, subtle border + blur
-// - Simple mobile drawer (no external UI libs)
-// - BN/EN toggle (naïve: switches between /bn and /en or ?lang=bn|en)
-// - Accessible focus states, reduced motion friendly
+import { Menu, X } from "lucide-react";
 
 const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/courses", label: "Courses" },
@@ -26,12 +20,8 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Close on route change
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
-  // Close on outside click
   useEffect(() => {
     function onClick(e: MouseEvent) {
       if (!open) return;
@@ -43,30 +33,19 @@ export default function Header() {
     return () => window.removeEventListener("mousedown", onClick);
   }, [open]);
 
-  // Lock scroll when menu is open
   useEffect(() => {
     const original = document.documentElement.style.overflow;
     if (open) document.documentElement.style.overflow = "hidden";
     else document.documentElement.style.overflow = original || "";
-    return () => {
-      document.documentElement.style.overflow = original || "";
-    };
+    return () => { document.documentElement.style.overflow = original || ""; };
   }, [open]);
 
   const isActive = (href: string) => (pathname || "").startsWith(href);
 
   function toggleLocale() {
-    // Heuristic: if path starts with /en, switch to /bn, else to /en.
-    // Adjust if your i18n routes differ. Falls back to ?lang=.
     const p = pathname || "/";
-    if (p.startsWith("/en")) {
-      router.push(p.replace("/en", "/bn"));
-      return;
-    }
-    if (p.startsWith("/bn")) {
-      router.push(p.replace("/bn", "/en"));
-      return;
-    }
+    if (p.startsWith("/en")) return router.push(p.replace("/en", "/bn"));
+    if (p.startsWith("/bn")) return router.push(p.replace("/bn", "/en"));
     const url = new URL(window.location.href);
     const next = url.searchParams.get("lang") === "bn" ? "en" : "bn";
     url.searchParams.set("lang", next);
@@ -77,9 +56,12 @@ export default function Header() {
     <header className="sticky top-0 z-50 border-b border-neutral-200/60 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-4 md:px-6">
         {/* Left: Logo */}
-        <Link href="/" className="flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 rounded-xl">
+        <Link
+          href="/"
+          className="flex items-center gap-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+        >
           <Image
-            src="/logo.svg"
+            src="/logo.png"            // <- fixed
             alt="Rova AI Academy"
             width={28}
             height={28}
@@ -115,6 +97,21 @@ export default function Header() {
           >
             BN/EN
           </button>
+
+          {/* Login / Signup returned */}
+          <Link
+            href="/login"
+            className="hidden md:inline-flex text-sm text-neutral-700 hover:text-neutral-900"
+          >
+            Login
+          </Link>
+          <Link
+            href="/signup"
+            className="hidden md:inline-flex text-sm text-neutral-700 hover:text-neutral-900"
+          >
+            Signup
+          </Link>
+
           <Link
             href="/enroll"
             className="hidden md:inline-flex rounded-xl border border-neutral-900 px-3.5 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-900 hover:text-white active:scale-[.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
@@ -151,7 +148,7 @@ export default function Header() {
         >
           <div className="flex h-16 items-center justify-between px-3 border-b border-neutral-200/60">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.svg" alt="Rova" width={24} height={24} />
+              <Image src="/logo.png" alt="Rova" width={24} height={24} />
               <span className="text-sm font-semibold tracking-tight">Rova</span>
             </Link>
             <button
@@ -180,16 +177,29 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="mt-auto border-t border-neutral-200/60 p-3 flex items-center gap-2">
+          {/* Mobile actions: 2x2 grid */}
+          <div className="mt-auto border-t border-neutral-200/60 p-3 grid grid-cols-2 gap-2">
             <button
               onClick={toggleLocale}
-              className="inline-flex flex-1 justify-center rounded-xl border border-neutral-200 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+              className="inline-flex justify-center rounded-xl border border-neutral-200 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
             >
               BN/EN
             </button>
             <Link
+              href="/login"
+              className="inline-flex justify-center rounded-xl border border-neutral-200 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+            >
+              Login
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex justify-center rounded-xl border border-neutral-200 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+            >
+              Signup
+            </Link>
+            <Link
               href={{ pathname: "/enroll", query: { product: "basic" } }}
-              className="inline-flex flex-1 justify-center rounded-xl border border-neutral-900 px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-900 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+              className="inline-flex justify-center rounded-xl border border-neutral-900 px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-900 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
             >
               Enroll
             </Link>
@@ -199,16 +209,3 @@ export default function Header() {
     </header>
   );
 }
-
-/*
-Usage:
-1) Save as app/components/Header.tsx and import in app/layout.tsx inside <body>.
-
-2) Tailwind utilities assumed. If using a container class, ensure body has bg-white.
-
-3) Replace /logo.svg with your actual logo. Keep empty brand text per rule; header shows logo only.
-
-4) i18n: adjust toggleLocale() to your routing (next-intl/next-i18next). This is a minimal, route-based toggle.
-
-5) Accessibility: focus-visible rings added, mobile sheet traps scroll and closes on outside click.
-*/
