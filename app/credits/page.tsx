@@ -229,10 +229,14 @@ export default function BuyCreditsPage() {
               <label className="block text-sm font-medium">কুপন কোড</label>
               <div className="mt-2 flex gap-2">
                 <input
-                  type="text"
-                  placeholder="OFF10, BDT200, STUDENT15…"
-                  value={couponInput}
-                  onChange={(e) => setCouponInput(e.target.value)}
+              type="text"
+              placeholder="কুপন কোড"
+              autoComplete="off"
+              spellCheck={false}
+              inputMode="text"
+              aria-label="Coupon code"
+              value={couponInput}
+              onChange={(e) => setCouponInput(e.target.value)}
                   className="flex-1 rounded-lg border border-neutral-300/70 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:border-neutral-700 dark:bg-neutral-900"
                 />
                 {!appliedCode ? (
