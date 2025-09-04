@@ -38,34 +38,74 @@ export default function Page({
 
   return (
     <>
-      {/* Hero */}
-      <section className="py-20 text-center">
-        <h1 className="text-4xl font-bold mb-6">
-          {t.titleA}{" "}
-          <span className="text-[color:var(--brand-primary)]">{t.titleB}</span>
-        </h1>
+{/* HERO — full-bleed background (covers left & right) */}
+<section className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden">
+  {/* BG image — fills entire section */}
+  <Image
+    src="/hero-automation.png"
+    alt=""
+    fill
+    priority
+    aria-hidden
+    className="absolute inset-0 -z-10 h-full w-full object-cover"
+  />
 
-        <p className="text-lg text-gray-600 mb-8">{t.sub}</p>
+  {/* left gradient so text is readable */}
+  <div className="absolute inset-y-0 left-0 -z-10 w-[85%] md:w-1/2
+                  bg-gradient-to-r from-white/95 via-white/80 to-transparent" />
 
-        <div className="flex justify-center gap-4">
-          <Link
-            href="/enroll"
-            className="rounded-md px-6 py-3 text-white font-medium"
-            style={{ background: "var(--brand-primary)" }}
-          >
-            {t.primary}
-          </Link>
-          <Link
-            href="/courses"
-            className="rounded-md px-6 py-3 border font-medium"
-          >
-            {t.secondary}
-          </Link>
+  {/* inner content stays constrained */}
+  <div className="mx-auto max-w-6xl grid items-center gap-8 px-4 py-12 md:py-20 md:grid-cols-2">
+    {/* left: text */}
+    <div className="text-center md:text-left">
+      <h1 className="text-4xl font-bold mb-6">
+        {t.titleA}{" "}
+        <span className="text-[color:var(--brand-primary)]">{t.titleB}</span>
+      </h1>
+
+      <p className="text-lg text-gray-700 mb-8">{t.sub}</p>
+
+      <div className="flex flex-wrap justify-center md:justify-start gap-3">
+        <Link
+          href="/enroll"
+          className="rounded-md px-6 py-3 text-white font-medium"
+          style={{ background: "var(--brand-primary)" }}
+        >
+          {t.primary}
+        </Link>
+        <Link
+          href="/courses"
+          className="rounded-md px-6 py-3 border font-medium bg-white/70 backdrop-blur"
+        >
+          {t.secondary}
+        </Link>
+      </div>
+
+      <div className="mt-4 text-sm text-gray-600">{t.badges}</div>
+    </div>
+
+    {/* right: framed visual */}
+    <div className="hidden md:block">
+      <div className="rounded-2xl border bg-white/70 backdrop-blur p-2 shadow-xl ring-1 ring-black/5">
+        <div className="relative aspect-video overflow-hidden rounded-xl">
+          <Image
+            src="/hero-automation.png"
+            alt="AI agent routing automations"
+            fill
+            className="object-contain"
+          />
+          <div className="absolute inset-0 grid place-items-center">
+            <div className="h-12 w-12 rounded-full bg-white/90 shadow-md grid place-items-center">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-[var(--brand-primary)]">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
         </div>
-
-        <div className="mt-8 text-sm text-gray-500">{t.badges}</div>
-      </section>
-
+      </div>
+    </div>
+  </div>
+</section>
 {/* Credits CTA (REPLACE THIS BLOCK) */}
 <section className="mx-auto max-w-6xl px-4 py-10">
   <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-r from-blue-50 to-indigo-50 p-5 sm:p-6">
