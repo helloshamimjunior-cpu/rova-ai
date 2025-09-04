@@ -66,73 +66,56 @@ export default function Page({
         <div className="mt-8 text-sm text-gray-500">{t.badges}</div>
       </section>
 
-      {/* Credits CTA */}
-      <section className="mx-auto max-w-7xl px-4 py-10">
-        <div className="rounded-2xl border border-neutral-200 bg-white p-5 flex items-center justify-between gap-4">
-          <div>
-            <h2 className="text-lg font-semibold">Buy Credits</h2>
-            <p className="mt-1 text-sm text-neutral-600">
-              টপ-আপ করে 1:1 সাপোর্ট/ওয়ার্কশপ বুক করো—ঝামেলা ছাড়া।
-            </p>
-          </div>
-          <Link
-            href="/credits"
-            className="rounded-xl border border-[var(--brand-primary)] px-3 py-2 text-sm font-medium text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white transition-colors"
-          >
-            Buy credits
-          </Link>
+{/* Credits CTA (REPLACE THIS BLOCK) */}
+<section className="mx-auto max-w-6xl px-4 py-10">
+  <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-r from-blue-50 to-indigo-50 p-5 sm:p-6">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex items-center gap-3">
+        <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/80 ring-1 ring-blue-100">
+          <CreditCard className="h-5 w-5 text-blue-600" />
         </div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="py-16 bg-white">
-        <h2 className="text-center text-2xl font-semibold mb-10">
-          ইতিমধ্যেই শত শত শিক্ষার্থী Rova AI Academy-তে যুক্ত
-        </h2>
-
-        <div className="mx-auto max-w-5xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 items-center">
-          <Image
-            src="https://dummyimage.com/140x60/ddd/000.png&text=Student+1"
-            alt="Student Logo 1"
-            width={140}
-            height={60}
-            className="mx-auto grayscale"
-            sizes="(max-width: 768px) 33vw, 140px"
-          />
-          <Image
-            src="https://dummyimage.com/140x60/ddd/000.png&text=Student+2"
-            alt="Student Logo 2"
-            width={140}
-            height={60}
-            className="mx-auto grayscale"
-            sizes="(max-width: 768px) 33vw, 140px"
-          />
-          <Image
-            src="https://dummyimage.com/140x60/ddd/000.png&text=Student+3"
-            alt="Student Logo 3"
-            width={140}
-            height={60}
-            className="mx-auto grayscale"
-            sizes="(max-width: 768px) 33vw, 140px"
-          />
-          <Image
-            src="https://dummyimage.com/140x60/ddd/000.png&text=Student+4"
-            alt="Student Logo 4"
-            width={140}
-            height={60}
-            className="mx-auto grayscale"
-            sizes="(max-width: 768px) 33vw, 140px"
-          />
-          <Image
-            src="https://dummyimage.com/140x60/ddd/000.png&text=Student+5"
-            alt="Student Logo 5"
-            width={140}
-            height={60}
-            className="mx-auto grayscale"
-            sizes="(max-width: 768px) 33vw, 140px"
-          />
+        <div>
+          <h3 className="text-base font-semibold text-neutral-900">Buy Credits</h3>
+          <p className="text-sm text-neutral-600">
+            1:1 সাপোর্ট, ওয়ার্কশপ, পোর্টফোলিও রিভিউ—টপ-আপ করে বুক করো।
+          </p>
         </div>
-      </section>
+      </div>
+
+      <Link
+        href="/credits"
+        className="inline-flex items-center rounded-xl border border-blue-600 px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-600 hover:text-white transition-colors"
+      >
+        Buy credits
+      </Link>
+    </div>
+
+    {/* subtle glow */}
+    <div className="pointer-events-none absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-blue-200/40 blur-3xl" />
+  </div>
+</section>
+
+{/* Social Proof (REPLACE THIS BLOCK) */}
+<section className="py-12 bg-white">
+  <div className="mx-auto max-w-6xl px-4 flex flex-col items-center gap-4">
+    <div className="flex -space-x-3">
+      {["Sadia Rahman","Mahin Islam","Tanvir Ahmed","Nadia Khan","Rafiul"].map((n, i) => (
+        <Image
+          key={i}
+          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(n)}&background=E5E7EB&color=111827&size=64`}
+          alt={n}
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-full ring-2 ring-white"
+        />
+      ))}
+    </div>
+    <p className="text-sm text-neutral-600">
+      Trusted by <span className="font-semibold text-neutral-900">300+ learners</span> — growing every week.
+    </p>
+  </div>
+</section>
+
 
       {/* Why Rova AI */}
       <section className="py-16 bg-white">
