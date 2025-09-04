@@ -1,3 +1,4 @@
+// app/pricing/page.tsx
 "use client";
 import Link from "next/link";
 import { useState } from "react";
@@ -42,7 +43,7 @@ export default function PricingPage() {
   async function buyCredit(pack: Pack) {
     try {
       setLoadingId(pack.id);
-      // চেষ্টা করি API checkout; না হলে /credits?pack=… এ পাঠাই
+      // চেষ্টা করি API checkout; না হলে /buy-credits?pack=… এ পাঠাই
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -55,9 +56,9 @@ export default function PricingPage() {
           return;
         }
       }
-      window.location.href = `/credits?pack=${pack.id}`;
+      window.location.href = `/buy-credits?pack=${pack.id}`;
     } catch {
-      window.location.href = `/credits?pack=${pack.id}`;
+      window.location.href = `/buy-credits?pack=${pack.id}`;
     } finally {
       setLoadingId(null);
     }
@@ -66,7 +67,7 @@ export default function PricingPage() {
   return (
     <main className="max-w-6xl mx-auto px-4 py-16">
       {/* ────────────────────── */}
-      {/* কোর্স প্ল্যান           */}
+      {/* কোর্স প্ল্যান */}
       {/* ────────────────────── */}
       <h1 className="text-3xl font-bold text-center mb-12">কোর্স প্ল্যান</h1>
 
@@ -96,7 +97,7 @@ export default function PricingPage() {
       </div>
 
       {/* ────────────────────── */}
-      {/* ক্রেডিট প্ল্যান        */}
+      {/* ক্রেডিট প্ল্যান */}
       {/* ────────────────────── */}
       <h2 className="text-2xl font-semibold mt-16 mb-6 text-center">ক্রেডিট প্ল্যান</h2>
 
