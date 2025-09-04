@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
+import { useState, Suspense } from 'react'
 
-/* ---------- Types & Data ---------- */
+/* ---------- Types & Demo Data (inline) ---------- */
 type Level = 'basic' | 'intermediate' | 'advanced' | 'micro'
 type Course = {
   id: string
@@ -55,30 +55,30 @@ function filterCourses(level?: string | null, q?: string | null) {
   return list
 }
 
-/* ---------- UI Pieces (inline components) ---------- */
-function CoursesFilters() {
+/* ---------- Inline UI pieces ---------- */
+function Filters() {
   const router = useRouter()
   const pathname = usePathname()
   const sp = useSearchParams()
   const active = (sp.get('level') as Level | 'all') || 'all'
   const [q, setQ] = useState(sp.get('q') ?? '')
+  const TABS: (Level | 'all')[] = ['all','basic','intermediate','advanced','micro']
 
-  function setParam(next: URLSearchParams) {
+  function push(next: URLSearchParams) {
     router.push(`${pathname}?${next.toString()}`)
   }
   function onTabClick(tab: Level | 'all') {
     const next = new URLSearchParams(sp.toString())
     if (tab === 'all') next.delete('level'); else next.set('level', tab)
-    setParam(next)
+    push(next)
   }
   function onSearch(e: React.FormEvent) {
     e.preventDefault()
     const next = new URLSearchParams(sp.toString())
     q ? next.set('q', q) : next.delete('q')
-    setParam(next)
+    push(next)
   }
 
-  const TABS: (Level | 'all')[] = ['all','basic','intermediate','advanced','micro']
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap gap-2">
@@ -112,32 +112,29 @@ function CoursesFilters() {
   )
 }
 
-function CoursesListingCard({ course }: { course: Course }) {
-  const enrollHref = `/enroll?product=${levelToProductParam[course.level]}`
+function CourseCard({ c }: { c: Course }) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-neutral-200/70 bg-white/70 p-5 shadow-sm ring-1 ring-neutral-900/5 backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md dark:border-neutral-800/60 dark:bg-neutral-900/50 dark:ring-white/10">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-70" />
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold tracking-tight">{course.titleBn}</h3>
+        <h3 className="text-lg font-semibold tracking-tight">{c.titleBn}</h3>
         <span className="rounded-full border border-neutral-300/70 px-3 py-1 text-xs text-neutral-700 dark:border-neutral-700 dark:text-neutral-300">
-          {levelLabelBn[course.level]}
+          {levelLabelBn[c.level]}
         </span>
       </div>
-      <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-300">{course.summaryBn}</p>
+      <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-300">{c.summaryBn}</p>
       <div className="mt-3 flex gap-3 text-xs text-neutral-600 dark:text-neutral-400">
-        <span className="rounded-md border border-neutral-300/70 px-2 py-1 dark:border-neutral-700">⏱ {course.durationHr} ঘন্টা</span>
-        <span className="rounded-md border border-neutral-300/70 px-2 py-1 dark:border-neutral-700">📚 {course.lessons} লেসন</span>
+        <span className="rounded-md border border-neutral-300/70 px-2 py-1 dark:border-neutral-700">⏱ {c.durationHr} ঘন্টা</span>
+        <span className="rounded-md border border-neutral-300/70 px-2 py-1 dark:border-neutral-700">📚 {c.lessons} লেসন</span>
       </div>
       <ul className="mt-3 grid list-disc gap-1 pl-5 text-sm text-neutral-800 dark:text-neutral-200">
-        {course.features.map((f, i) => (
-          <li key={i} className="marker:text-indigo-500">{f}</li>
-        ))}
+        {c.features.map((f, i) => <li key={i} className="marker:text-indigo-500">{f}</li>)}
       </ul>
       <div className="mt-4 flex gap-2">
-        <Link href={enrollHref} className="rounded-xl border border-neutral-300/70 px-4 py-2 text-sm transition hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800">
+        <Link href={`/enroll?product=${levelToProductParam[c.level]}`} className="rounded-xl border border-neutral-300/70 px-4 py-2 text-sm transition hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800">
           এনরোল করুন
         </Link>
-        <Link href={`/courses/${course.slug}`} className="rounded-xl border border-neutral-300/70 px-4 py-2 text-sm transition hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800">
+        <Link href={`/courses/${c.slug}`} className="rounded-xl border border-neutral-300/70 px-4 py-2 text-sm transition hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800">
           বিস্তারিত
         </Link>
       </div>
@@ -147,30 +144,17 @@ function CoursesListingCard({ course }: { course: Course }) {
 }
 
 /* ---------- Page ---------- */
-export default function CoursesPageClient() {
+function CoursesBody() {
   const sp = useSearchParams()
   const level = sp.get('level')
   const q = sp.get('q')
-
   const list = filterCourses(level, q)
   const hasFilters = Boolean((level && ['basic','intermediate','advanced','micro'].includes(level)) || q)
 
   return (
-    <main className="relative mx-auto max-w-6xl px-4 py-10">
-      {/* soft gradient bg (site-wide grading preserved) */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_10%_10%,rgba(37,99,235,0.12),transparent),radial-gradient(50%_60%_at_90%_20%,rgba(147,51,234,0.10),transparent),linear-gradient(to_bottom,#f8fafc,white)] dark:bg-[radial-gradient(60%_70%_at_10%_10%,rgba(37,99,235,0.10),transparent),radial-gradient(50%_60%_at_90%_20%,rgba(147,51,234,0.10),transparent),linear-gradient(to_bottom,#0a0a0a,#0f0f10)]" />
-
-      <header className="mb-6 text-center">
-        <h1 className="text-3xl font-bold tracking-tight">
-          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">কোর্সসমূহ</span>
-        </h1>
-        <p className="mx-auto mt-2 max-w-2xl text-sm text-neutral-600 dark:text-neutral-300">
-          বেছে নিন—বেসিক, ইন্টারমিডিয়েট, অ্যাডভান্সড বা মাইক্রো। ফিল্টার/সার্চ ব্যবহার করুন।
-        </p>
-      </header>
-
+    <>
       <section className="rounded-2xl border border-neutral-200/70 bg-white/70 p-4 ring-1 ring-neutral-900/5 backdrop-blur-sm dark:border-neutral-800/60 dark:bg-neutral-900/50 dark:ring-white/10">
-        <CoursesFilters />
+        <Filters />
       </section>
 
       <section className="mt-4 flex items-center justify-between text-sm text-neutral-600 dark:text-neutral-400">
@@ -188,9 +172,34 @@ export default function CoursesPageClient() {
             কিছু পাওয়া যায়নি। ফিল্টার/সার্চ রিসেট করে দেখুন।
           </div>
         ) : (
-          list.map(c => <CoursesListingCard key={c.id} course={c} />)
+          list.map(c => <CourseCard key={c.id} c={c} />)
         )}
       </section>
+    </>
+  )
+}
+
+export default function CoursesPageClient() {
+  return (
+    <main className="relative mx-auto max-w-6xl px-4 py-10">
+      {/* নরম গ্রেডিয়েন্ট ব্যাকগ্রাউন্ড (হোমের মতো) */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_10%_10%,rgba(37,99,235,0.12),transparent),radial-gradient(50%_60%_at_90%_20%,rgba(147,51,234,0.10),transparent),linear-gradient(to_bottom,#f8fafc,white)] dark:bg-[radial-gradient(60%_70%_at_10%_10%,rgba(37,99,235,0.10),transparent),radial-gradient(50%_60%_at_90%_20%,rgba(147,51,234,0.10),transparent),linear-gradient(to_bottom,#0a0a0a,#0f0f10)]" />
+
+      <header className="mb-6 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">
+          <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            কোর্সসমূহ
+          </span>
+        </h1>
+        <p className="mx-auto mt-2 max-w-2xl text-sm text-neutral-600 dark:text-neutral-300">
+          বেছে নিন—বেসিক, ইন্টারমিডিয়েট, অ্যাডভান্সড বা মাইক্রো। ফিল্টার/সার্চ ব্যবহার করুন।
+        </p>
+      </header>
+
+      {/* useSearchParams নিরাপদ রাখতে Suspense দিলাম (প্রোডে সতর্কতা বন্ধ) */}
+      <Suspense fallback={<div className="text-sm text-neutral-500">Loading…</div>}>
+        <CoursesBody />
+      </Suspense>
     </main>
   )
 }
