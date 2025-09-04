@@ -20,9 +20,9 @@ const PACKS: Pack[] = [
 
 // 🎟️ কুপন তালিকা: percent = শতাংশ, flat = নির্দিষ্ট টাকা
 const COUPONS = {
-  OFF5:   { type: "percent", value: 5,  label: "5% off" },
-  OFF10:  { type: "percent", value: 10, label: "10% off" },
-  BDT200: { type: "flat",    value: 200, label: "৳200 off" },
+  OFF5: { type: "percent", value: 5, label: "5% off" },
+  OFF10: { type: "percent", value: 10, label: "10% off" },
+  BDT200: { type: "flat", value: 200, label: "৳200 off" },
   STUDENT15: { type: "percent", value: 15, label: "Student 15% (demo)" },
 } as const;
 
@@ -44,17 +44,18 @@ export default function BuyCreditsPage() {
   // ক্রেডিট সংখ্যা (ইন্টিজার, ন্যূনতম 1)
   const qty = Math.max(1, Math.floor(Number(custom || selectedPack.credits)));
 
-  // রেট: নির্বাচিত প্যাকের প্রকৃত ইউনিট রেট (৳/ক্রেডিট)
+  // নির্বাচিত প্যাকের প্রকৃত ইউনিট রেট (৳/ক্রেডিট)
   const unitBDT = Math.max(1, Math.round(selectedPack.price / selectedPack.credits)) || 50;
 
   // সাবটোটাল
   const undiscounted = qty * unitBDT;
 
-  // Bulk tier discount
+  // ── ডিসকাউন্ট ক্যাল্ক ───────────────────────────────────────
+  // 1) Bulk tier
   const bulkRate = qty >= 1000 ? 0.10 : qty >= 300 ? 0.05 : 0;
   const bulkDiscount = Math.round(undiscounted * bulkRate);
 
-  // Coupon discount (যদি ভ্যালিড কুপন আপ্লাই থাকে)
+  // 2) Coupon
   const coupon = appliedCode ? COUPONS[appliedCode] : null;
   const couponDiscount = coupon
     ? coupon.type === "percent"
@@ -62,16 +63,26 @@ export default function BuyCreditsPage() {
       : Math.round(coupon.value)
     : 0;
 
-  // ✅ Only one applies: যে ডিসকাউন্ট বেশি, সেটাই প্রযোজ্য
-  const bestDiscount = Math.min(Math.max(bulkDiscount, couponDiscount), undiscounted);
-  const discountSource =
-    bestDiscount === 0
-      ? null
-      : bestDiscount === couponDiscount && coupon
-        ? `Coupon (${coupon.label})`
-        : bulkRate > 0
-          ? `Bulk ${Math.round(bulkRate * 100)}%`
-          : null;
+  // 3) Pack promo (✅ Plus = 5%, Pro = 10%)
+  const packPromoRate = selectedId === "pro" ? 0.10 : selectedId === "plus" ? 0.05 : 0;
+  const packPromoDiscount = Math.round(undiscounted * packPromoRate);
+
+  // ✅ তিনটার মধ্যে যে ডিসকাউন্ট বেশি, সেটা প্রযোজ্য (non-stacking)
+  const bestDiscount = Math.min(
+    Math.max(bulkDiscount, couponDiscount, packPromoDiscount),
+    undiscounted
+  );
+
+  let discountSource: string | null = null;
+  if (bestDiscount > 0) {
+    if (bestDiscount === packPromoDiscount && packPromoRate > 0) {
+      discountSource = `Pack promo ${Math.round(packPromoRate * 100)}%`;
+    } else if (bestDiscount === couponDiscount && coupon) {
+      discountSource = `Coupon (${coupon.label})`;
+    } else if (bestDiscount === bulkDiscount && bulkRate > 0) {
+      discountSource = `Bulk ${Math.round(bulkRate * 100)}%`;
+    }
+  }
 
   const total = Math.max(0, undiscounted - bestDiscount);
 
@@ -104,6 +115,7 @@ export default function BuyCreditsPage() {
       amount: String(total),
     });
     if (appliedCode) params.set("coupon", appliedCode);
+    if (packPromoRate > 0) params.set("promo", String(Math.round(packPromoRate * 100)));
     router.push(`/enroll?${params.toString()}`);
   };
 
@@ -113,7 +125,8 @@ export default function BuyCreditsPage() {
         <header className="mb-8 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Buy Credits</h1>
           <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
-            প্যাক বেছে নিন বা কাস্টম ক্রেডিট দিন। Bulk tier (300+=5%, 1000+=10%) বা কুপন—যেটা বেশি ছাড় দেয়, সেটাই প্রযোজ্য।
+            প্যাক বেছে নিন বা কাস্টম ক্রেডিট দিন। Bulk (300+=5%, 1000+=10%), Coupon,
+            বা Pack promo (Plus=5%, Pro=10%)—**যেটা বেশি ছাড় দেয়, সেটাই প্রযোজ্য**।
           </p>
         </header>
 
@@ -122,6 +135,7 @@ export default function BuyCreditsPage() {
           {PACKS.map((p) => {
             const active = p.id === selectedId;
             const perUnit = Math.max(1, Math.round(p.price / p.credits));
+            const promoHint = p.id === "pro" ? "Auto 10% off" : p.id === "plus" ? "Auto 5% off" : null;
             return (
               <button
                 key={p.id}
@@ -145,6 +159,11 @@ export default function BuyCreditsPage() {
                 </p>
                 <p className="mt-4 text-2xl font-semibold">৳{p.price.toLocaleString()}</p>
                 <p className="mt-1 text-xs text-neutral-500">~৳{perUnit}/credit</p>
+                {promoHint && (
+                  <p className="mt-2 inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-900/30 dark:text-emerald-200">
+                    {promoHint}
+                  </p>
+                )}
               </button>
             );
           })}
@@ -201,11 +220,9 @@ export default function BuyCreditsPage() {
                   Applied: {COUPONS[appliedCode].label}
                 </p>
               )}
-              {couponError && (
-                <p className="mt-2 text-xs text-red-600">{couponError}</p>
-              )}
+              {couponError && <p className="mt-2 text-xs text-red-600">{couponError}</p>}
               <p className="mt-2 text-xs text-neutral-500">
-                নোট: Bulk বা Coupon—**শুধু একটিই** প্রযোজ্য (যেটি বেশি ছাড় দেয়)।
+                নোট: Bulk/Coupon/Pack promo—**শুধু একটিই** প্রযোজ্য (যেটি বেশি ছাড় দেয়)।
               </p>
             </div>
           </div>
@@ -231,7 +248,9 @@ export default function BuyCreditsPage() {
                     <div
                       className={[
                         "flex items-center justify-between",
-                        bestDiscount === bulkDiscount ? "text-emerald-600" : "text-neutral-400 line-through",
+                        bestDiscount === bulkDiscount
+                          ? "text-emerald-600"
+                          : "text-neutral-400 line-through",
                       ].join(" ")}
                     >
                       <span>Bulk discount ({Math.round(bulkRate * 100)}%)</span>
@@ -244,11 +263,28 @@ export default function BuyCreditsPage() {
                     <div
                       className={[
                         "flex items-center justify-between",
-                        bestDiscount === couponDiscount ? "text-emerald-600" : "text-neutral-400 line-through",
+                        bestDiscount === couponDiscount
+                          ? "text-emerald-600"
+                          : "text-neutral-400 line-through",
                       ].join(" ")}
                     >
                       <span>Coupon {COUPONS[appliedCode].label}</span>
                       <span>-৳{couponDiscount.toLocaleString()}</span>
+                    </div>
+                  )}
+
+                  {/* Pack promo line ✅ */}
+                  {packPromoRate > 0 && (
+                    <div
+                      className={[
+                        "flex items-center justify-between",
+                        bestDiscount === packPromoDiscount
+                          ? "text-emerald-600"
+                          : "text-neutral-400 line-through",
+                      ].join(" ")}
+                    >
+                      <span>Pack promo ({Math.round(packPromoRate * 100)}%)</span>
+                      <span>-৳{packPromoDiscount.toLocaleString()}</span>
                     </div>
                   )}
                 </div>
