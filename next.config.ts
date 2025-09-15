@@ -1,10 +1,17 @@
-// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  eslint: {
-    // ✅ বিল্ডে লিন্ট ইস্যু থাকলেও ফেল করবে না
-    ignoreDuringBuilds: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+      },
+      {
+        protocol: "https",
+        hostname: "dummyimage.com",
+      },
+    ],
   },
 };
 
