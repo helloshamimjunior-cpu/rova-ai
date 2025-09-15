@@ -10,5 +10,8 @@ export const prisma =
   });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+<<<<<<< HEAD
 
 export default prisma;
+=======
+>>>>>>> deploy/courses-v1
