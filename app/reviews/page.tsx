@@ -1,5 +1,5 @@
 // app/reviews/page.tsx
-import Link from "next/link"
+import Link from "next/link";
 
 const reviews = [
   { id: 1, name: "রাহিম উদ্দিন", role: "স্টুডেন্ট (Basic)", text: "কোর্সের কনটেন্ট পরিষ্কার, সহজে বোঝা যায়।" },
@@ -12,32 +12,38 @@ const reviews = [
   { id: 8, name: "মেহজাবিন আহমেদ", role: "স্টুডেন্ট (Intermediate)", text: "কমিউনিটি সাপোর্ট খুবই অ্যাক্টিভ।" },
   { id: 9, name: "শাহরিয়ার ইসলাম", role: "স্টুডেন্ট (Advanced)", text: "টপিকগুলো গভীরে কভার করা হয়েছে।" },
   { id: 10, name: "ফারজানা পারভিন", role: "স্টুডেন্ট (Basic)", text: "প্র্যাকটিস কুইজ গুলো অনেক কাজে লেগেছে।" },
-]
+];
 
-const PER_PAGE = 6
+const PER_PAGE = 6;
+export const dynamic = "force-static";
 
-export default function ReviewsPage({
+export default async function ReviewsPage({
   searchParams,
 }: {
-  searchParams: { page?: string }
+  // ✅ Next 15: Promise
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const page = Math.max(1, parseInt(searchParams.page ?? "1", 10) || 1)
-  const totalPages = Math.ceil(reviews.length / PER_PAGE)
-  const start = (page - 1) * PER_PAGE
-  const paginated = reviews.slice(start, start + PER_PAGE)
+  const sp = await searchParams; // ✅ await
+  const page = Math.max(1, parseInt(sp?.page ?? "1", 10) || 1);
+  const totalPages = Math.ceil(reviews.length / PER_PAGE);
+  const start = (page - 1) * PER_PAGE;
+  const paginated = reviews.slice(start, start + PER_PAGE);
 
-  const prevHref = `?page=${Math.max(1, page - 1)}`
-  const nextHref = `?page=${Math.min(totalPages, page + 1)}`
+  const prevHref = `?page=${Math.max(1, page - 1)}`;
+  const nextHref = `?page=${Math.min(totalPages, page + 1)}`;
 
   return (
     <section className="max-w-5xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-center mb-10">শিক্ষার্থীদের রিভিউ</h1>
+      <h1 className="mb-10 text-center text-3xl font-bold">শিক্ষার্থীদের রিভিউ</h1>
 
       <div className="grid gap-6 md:grid-cols-2">
         {paginated.map((r) => (
-          <div key={r.id} className="rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition">
+          <div
+            key={r.id}
+            className="rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md"
+          >
             <div className="p-6">
-              <p className="text-gray-700 mb-4">“{r.text}”</p>
+              <p className="mb-4 text-gray-700">“{r.text}”</p>
               <p className="font-semibold">{r.name}</p>
               <p className="text-sm text-gray-500">{r.role}</p>
             </div>
@@ -45,30 +51,38 @@ export default function ReviewsPage({
         ))}
       </div>
 
-      {/* pagination (লিঙ্ক-ভিত্তিক, কোন ক্লায়েন্ট হুক নেই) */}
-      <div className="flex justify-center items-center gap-4 mt-10">
+      {/* pagination */}
+      <div className="mt-10 flex items-center justify-center gap-4">
         {page > 1 ? (
-          <Link href={prevHref} className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50">
+          <Link
+            href={prevHref}
+            className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50"
+          >
             ← আগের
           </Link>
         ) : (
-          <span className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-200 text-gray-400 cursor-not-allowed">
+          <span className="inline-flex cursor-not-allowed items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-400">
             ← আগের
           </span>
         )}
 
-        <span className="text-gray-600">পৃষ্ঠা {page} এর {totalPages}</span>
+        <span className="text-gray-600">
+          পৃষ্ঠা {page} এর {totalPages}
+        </span>
 
         {page < totalPages ? (
-          <Link href={nextHref} className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50">
+          <Link
+            href={nextHref}
+            className="inline-flex items-center justify-center rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-medium hover:bg-gray-50"
+          >
             পরের →
           </Link>
         ) : (
-          <span className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium border border-gray-200 text-gray-400 cursor-not-allowed">
+          <span className="inline-flex cursor-not-allowed items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-400">
             পরের →
           </span>
         )}
       </div>
     </section>
-  )
+  );
 }
