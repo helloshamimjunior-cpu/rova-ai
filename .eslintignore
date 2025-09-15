@@ -1,6 +1,4 @@
 node_modules
 .next
+.vercel
 lib/generated/**
-lib/generated/**
-.next
-node_modules
