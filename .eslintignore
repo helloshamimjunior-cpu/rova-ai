@@ -1,0 +1,6 @@
+node_modules
+.next
+lib/generated/**
+lib/generated/**
+.next
+node_modules
